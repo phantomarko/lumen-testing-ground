@@ -112,4 +112,10 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
+$app->router->group([
+    'namespace' => 'App\Infrastructure\Product\Controller\Http',
+], function ($router) {
+    require __DIR__.'/../routes/product.php';
+});
+
 return $app;
