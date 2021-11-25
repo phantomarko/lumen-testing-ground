@@ -107,15 +107,9 @@ $app->configure('app');
 */
 
 $app->router->group([
-    'namespace' => 'App\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
-});
-
-$app->router->group([
     'namespace' => 'App\Infrastructure\Product\Controller\Http',
 ], function ($router) {
-    require __DIR__.'/../routes/product.php';
+    require __DIR__.'/../app/Infrastructure/Product/Controller/Http/routes.php';
 });
 
 return $app;
