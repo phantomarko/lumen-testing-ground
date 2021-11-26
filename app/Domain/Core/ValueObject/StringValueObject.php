@@ -14,7 +14,6 @@ abstract class StringValueObject
 
     /**
      * Throws an exception if the value is not valid
-     * @param string $value
      */
     abstract protected function validate(string $value): void;
 

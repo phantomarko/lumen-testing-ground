@@ -13,9 +13,6 @@ final class Currency extends StringValueObject
         self::DOLLAR
     ];
 
-    /**
-     * @throws CurrencyNotValidException
-     */
     protected function validate(string $value): void
     {
         if (!in_array($value, self::AVAILABLE_CURRENCIES)) {

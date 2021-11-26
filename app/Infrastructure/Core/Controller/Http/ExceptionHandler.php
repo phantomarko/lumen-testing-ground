@@ -13,29 +13,17 @@ class ExceptionHandler extends LumenExceptionHandler
 {
     /**
      * A list of the exception types that should not be reported.
-     *
-     * @var array
      */
     protected $dontReport = [];
 
     /**
-     * Report or log an exception.
-     *
-     * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
-     *
-     * @param  \Throwable  $exception
-     * @return void
-     *
-     * @throws \Exception
+     * Report or log an exception
      */
     public function report(Throwable $exception)
     {
         parent::report($exception);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function render($request, Throwable $e): Response
     {
         if (method_exists($e, 'render')) {
@@ -55,9 +43,6 @@ class ExceptionHandler extends LumenExceptionHandler
         return $this->prepareJsonResponse($request, $e);
     }
 
-    /**
-     * @inheritDoc
-     */
     protected function prepareJsonResponse($request, Throwable $e)
     {
         return new BaseResponse(
