@@ -20,7 +20,7 @@ class GetProductController extends BaseController
 
     public function execute(Request $request, $uuid): BaseResponse
     {
-        $product = $this->getProductQueryHandler->execute(new GetProductQuery(new Uuid($uuid)));
+        $product = $this->getProductQueryHandler->handle(new GetProductQuery(new Uuid($uuid)));
 
         return new GetProductResponse($product);
     }

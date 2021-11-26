@@ -18,7 +18,7 @@ class GetProductQueryHandler
     /**
      * @throws ProductNotFoundException
      */
-    public function execute(GetProductQuery $query): Product
+    public function handle(GetProductQuery $query): Product
     {
         $product = $this->productRepository->findByUuid($query->getUuid());
 
