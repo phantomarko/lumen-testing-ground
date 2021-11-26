@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Application\Product\Service;
+namespace App\Application\Product\Query;
 
 use App\Domain\Core\ValueObject\Uuid;
 
-class GetProductRequest
+class GetProductQuery
 {
     private Uuid $uuid;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\Product\Service;
+namespace App\Application\Product\Query;
 
 use App\Application\Product\Exception\ProductNotFoundException;
 use App\Domain\Product\Model\Product;
 use App\Domain\Product\Repository\ProductRepositoryInterface;
 
-class GetProductService
+class GetProductQueryHandler
 {
     private ProductRepositoryInterface $productRepository;
 
@@ -18,12 +18,12 @@ class GetProductService
     /**
      * @throws ProductNotFoundException
      */
-    public function execute(GetProductRequest $request): Product
+    public function execute(GetProductQuery $query): Product
     {
-        $product = $this->productRepository->findByUuid($request->getUuid());
+        $product = $this->productRepository->findByUuid($query->getUuid());
 
         if (empty($product)) {
-            throw new ProductNotFoundException($request->getUuid());
+            throw new ProductNotFoundException($query->getUuid());
         }
 
         return $product;
