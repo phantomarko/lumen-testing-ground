@@ -6,8 +6,8 @@ use App\Application\Product\Service\GetProductRequest;
 use App\Application\Product\Service\GetProductService;
 use App\Domain\Core\ValueObject\Uuid;
 use App\Infrastructure\Core\Controller\Http\BaseController;
+use App\Infrastructure\Core\Controller\Http\BaseResponse;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class GetProductController extends BaseController
 {
@@ -18,12 +18,10 @@ class GetProductController extends BaseController
         $this->getProductService = $getProductService;
     }
 
-    public function execute(Request $request, $uuid): Response
+    public function execute(Request $request, $uuid): BaseResponse
     {
         $product = $this->getProductService->execute(new GetProductRequest(new Uuid($uuid)));
 
-        return new Response(
-            (new GetProductResponse($product))->toArray()
-        );
+        return new GetProductResponse($product);
     }
 }

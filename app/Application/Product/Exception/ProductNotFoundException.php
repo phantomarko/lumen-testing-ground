@@ -2,9 +2,10 @@
 
 namespace App\Application\Product\Exception;
 
+use App\Application\Core\Exception\NotFoundException;
 use App\Domain\Core\ValueObject\Uuid;
 
-class ProductNotFoundException extends \Exception
+class ProductNotFoundException extends NotFoundException
 {
 
     public function __construct(Uuid $uuid)

@@ -3,23 +3,22 @@
 namespace App\Infrastructure\Product\Controller\Http;
 
 use App\Domain\Product\Model\Product;
+use App\Infrastructure\Core\Controller\Http\BaseResponse;
 
-class GetProductResponse
+class GetProductResponse extends BaseResponse
 {
-    private Product $product;
-
     public function __construct(Product $product)
     {
-        $this->product = $product;
+        parent::__construct($this->toArray($product));
     }
 
-    public function toArray(): array
+    private function toArray(Product $product): array
     {
         return [
-            'uuid' => (string) $this->product->getUuid(),
-            'name' => (string) $this->product->getName(),
-            'price' => $this->product->getPrice()->getAmount(),
-            'currency' => (string) $this->product->getPrice()->getCurrency(),
+            'uuid' => (string) $product->getUuid(),
+            'name' => (string) $product->getName(),
+            'price' => $product->getPrice()->getAmount(),
+            'currency' => (string) $product->getPrice()->getCurrency(),
         ];
     }
 }

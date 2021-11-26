@@ -40,7 +40,7 @@ $app = new Laravel\Lumen\Application(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Infrastructure\Core\Exception\ExceptionHandler::class
+    App\Infrastructure\Core\Controller\Http\ExceptionHandler::class
 );
 
 $app->singleton(
