@@ -2,17 +2,19 @@
 
 namespace App\Application\Product\Service;
 
+use App\Domain\Core\ValueObject\Uuid;
+
 class GetProductRequest
 {
-    private $id;
+    private Uuid $uuid;
 
-    public function __construct(int $id)
+    public function __construct(Uuid $uuid)
     {
-        $this->id = $id;
+        $this->uuid = $uuid;
     }
 
-    public function getId(): int
+    public function getUuid(): Uuid
     {
-        return $this->id;
+        return $this->uuid;
     }
 }
