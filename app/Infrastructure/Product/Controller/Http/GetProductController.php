@@ -7,7 +7,6 @@ use App\Application\Product\Query\GetProductQueryHandler;
 use App\Domain\Core\ValueObject\Uuid;
 use App\Infrastructure\Core\Controller\Http\BaseController;
 use App\Infrastructure\Core\Controller\Http\BaseResponse;
-use Illuminate\Http\Request;
 
 class GetProductController extends BaseController
 {
@@ -15,10 +14,11 @@ class GetProductController extends BaseController
 
     public function __construct(GetProductQueryHandler $getProductQueryHandler)
     {
+        // TODO use tactician package bus
         $this->getProductQueryHandler = $getProductQueryHandler;
     }
 
-    public function execute(Request $request, $uuid): BaseResponse
+    public function index($uuid): BaseResponse
     {
         $product = $this->getProductQueryHandler->handle(new GetProductQuery(new Uuid($uuid)));
 

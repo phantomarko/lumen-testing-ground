@@ -91,7 +91,20 @@ $app->configure('app');
 |
 */
 
- $app->register(\App\Infrastructure\Product\ProductServicesProvider::class);
+// $app->register(\App\Infrastructure\Module\ModuleProvider::class);
+
+/*
+|--------------------------------------------------------------------------
+| Load services.yaml
+|--------------------------------------------------------------------------
+*/
+
+$containerBuilder = new Symfony\Component\DependencyInjection\ContainerBuilder();
+$loader = new Symfony\Component\DependencyInjection\Loader\YamlFileLoader(
+    $containerBuilder,
+    new Symfony\Component\Config\FileLocator(__DIR__)
+);
+$loader->load('../config/services.yaml');
 
 /*
 |--------------------------------------------------------------------------
@@ -106,8 +119,8 @@ $app->configure('app');
 
 $app->router->group([
     'namespace' => 'App\Infrastructure\Product\Controller\Http',
-], function ($router) {
-    require __DIR__.'/../app/Infrastructure/Product/Controller/Http/routes.php';
+], function ($router) use ($containerBuilder) {
+    require __DIR__.'/../app/Infrastructure/Product/Resources/routes.php';
 });
 
 return $app;
