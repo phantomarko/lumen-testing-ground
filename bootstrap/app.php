@@ -29,12 +29,46 @@ $app = new Laravel\Lumen\Application(
 
 /*
 |--------------------------------------------------------------------------
-| Register Container Bindings
+| Instance symfony container builder
 |--------------------------------------------------------------------------
-|
-| Now we will register a few bindings in the service container. We will
-| register the exception handler and the console kernel. You may add
-| your own bindings here if you like or you can make another file.
+*/
+
+$containerBuilder = new Symfony\Component\DependencyInjection\ContainerBuilder();
+$loader = new Symfony\Component\DependencyInjection\Loader\YamlFileLoader(
+    $containerBuilder,
+    new Symfony\Component\Config\FileLocator(__DIR__)
+);
+$loader->load('../config/services.yaml');
+
+/*
+|--------------------------------------------------------------------------
+| Instance tactician command bus
+|--------------------------------------------------------------------------
+*/
+
+$mappings = require '../config/cqrs_mapping.php';
+$containerLocator = new \League\Tactician\Bundle\Handler\ContainerBasedHandlerLocator(
+    $containerBuilder,
+    $mappings
+);
+
+$commandHandlerMiddleware = new League\Tactician\Handler\CommandHandlerMiddleware(
+    new League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor(),
+    $containerLocator,
+    new League\Tactician\Handler\MethodNameInflector\HandleInflector()
+);
+
+$commandBus = new League\Tactician\CommandBus(
+    [
+        $commandHandlerMiddleware,
+        // add other middlewares...
+    ]
+);
+
+/*
+|--------------------------------------------------------------------------
+| Register singletons in service container
+|--------------------------------------------------------------------------
 |
 */
 
@@ -46,6 +80,20 @@ $app->singleton(
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Infrastructure\Core\Controller\Console\ConsoleKernel::class
+);
+
+$app->singleton(
+    Symfony\Component\DependencyInjection\ContainerBuilder::class,
+    function () use ($containerBuilder) {
+        return $containerBuilder;
+    }
+);
+
+$app->singleton(
+    League\Tactician\CommandBus::class,
+    function () use ($commandBus) {
+        return $commandBus;
+    }
 );
 
 /*
@@ -95,19 +143,6 @@ $app->configure('app');
 
 /*
 |--------------------------------------------------------------------------
-| Load services.yaml
-|--------------------------------------------------------------------------
-*/
-
-$containerBuilder = new Symfony\Component\DependencyInjection\ContainerBuilder();
-$loader = new Symfony\Component\DependencyInjection\Loader\YamlFileLoader(
-    $containerBuilder,
-    new Symfony\Component\Config\FileLocator(__DIR__)
-);
-$loader->load('../config/services.yaml');
-
-/*
-|--------------------------------------------------------------------------
 | Load The Application Routes
 |--------------------------------------------------------------------------
 |
@@ -119,7 +154,7 @@ $loader->load('../config/services.yaml');
 
 $app->router->group([
     'namespace' => 'App\Infrastructure\Product\Controller\Http',
-], function ($router) use ($containerBuilder) {
+], function ($router) {
     require __DIR__.'/../app/Infrastructure/Product/Resources/routes.php';
 });
 

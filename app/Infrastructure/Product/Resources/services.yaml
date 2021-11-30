@@ -2,25 +2,12 @@ parameters:
   example_parameter: 'EXAMPLE'
 
 services:
-  App\Infrastructure\Product\Controller\Http\GetProductController.random:
-    class: App\Infrastructure\Product\Controller\Http\GetProductController
-    arguments:
-      - '@App\Application\Product\Query\GetProductQueryHandler.random'
-
-  App\Infrastructure\Product\Controller\Http\GetProductController.random_pokemon:
-    class: App\Infrastructure\Product\Controller\Http\GetProductController
-    arguments:
-      - '@App\Application\Product\Query\GetProductQueryHandler.random_pokemon'
-
-  App\Application\Product\Query\GetProductQueryHandler.random:
-    class: App\Application\Product\Query\GetProductQueryHandler
-    arguments:
-      - '@App\Infrastructure\Product\Repository\RandomProductRepository'
-
-  App\Application\Product\Query\GetProductQueryHandler.random_pokemon:
+  App\Application\Product\Query\GetProductQueryHandler:
     class: App\Application\Product\Query\GetProductQueryHandler
     arguments:
       - '@App\Infrastructure\Product\Repository\RandomPokemonProductRepository'
+    tags:
+      - { name: tactician.handler, typehints: true }
 
   App\Infrastructure\Product\Repository\RandomProductRepository:
     class: App\Infrastructure\Product\Repository\RandomProductRepository
