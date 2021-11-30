@@ -15,7 +15,7 @@ class RandomProductRepository implements ProductRepositoryInterface
     public function findByUuid(Uuid $uuid): ?Product
     {
         return new Product(
-            new Uuid(\Ramsey\Uuid\Uuid::uuid4()),
+            $uuid,
             new ProductName($this->generateRandomString()),
             new Price(288.88, Currency::createDollar())
         );

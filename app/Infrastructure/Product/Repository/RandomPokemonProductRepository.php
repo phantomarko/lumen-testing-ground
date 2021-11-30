@@ -14,7 +14,7 @@ class RandomPokemonProductRepository implements ProductRepositoryInterface
     public function findByUuid(Uuid $uuid): ?Product
     {
         return new Product(
-            new Uuid(\Ramsey\Uuid\Uuid::uuid4()),
+            $uuid,
             new ProductName($this->getRandomPokemon()),
             new Price(1, Currency::createEuro())
         );
