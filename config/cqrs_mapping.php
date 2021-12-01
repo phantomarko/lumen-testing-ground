@@ -1,12 +1,12 @@
 <?php
 
-$configFiles = [
+$mappingFiles = [
     '../app/Infrastructure/Product/Resources/cqrs_mapping.php',
 ];
 
 $mappings = [];
-foreach ($configFiles as $configFile) {
-    $mappings = array_merge(require $configFile, $mappings);
+foreach ($mappingFiles as $mappingFile) {
+    $mappings = array_merge(require $mappingFile, $mappings);
 }
 
 return $mappings;
