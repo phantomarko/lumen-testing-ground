@@ -39,6 +39,7 @@ $loader = new Symfony\Component\DependencyInjection\Loader\YamlFileLoader(
     new Symfony\Component\Config\FileLocator(__DIR__)
 );
 $loader->load('../config/services.yaml');
+$containerBuilder->compile(true);
 
 /*
 |--------------------------------------------------------------------------

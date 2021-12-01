@@ -1,16 +1,17 @@
 parameters:
-  example_parameter: 'EXAMPLE'
+  example_parameter: '%env(APP_NAME)%'
 
 services:
   App\Application\Product\Query\GetProductQueryHandler:
     class: App\Application\Product\Query\GetProductQueryHandler
     arguments:
       - '@App\Infrastructure\Product\Repository\RandomPokemonProductRepository'
+    public: true
     tags:
       - { name: tactician.handler, typehints: true }
 
-  App\Infrastructure\Product\Repository\RandomProductRepository:
-    class: App\Infrastructure\Product\Repository\RandomProductRepository
-
   App\Infrastructure\Product\Repository\RandomPokemonProductRepository:
     class: App\Infrastructure\Product\Repository\RandomPokemonProductRepository
+
+  App\Infrastructure\Product\Repository\VoidProductRepository:
+    class: App\Infrastructure\Product\Repository\VoidProductRepository
