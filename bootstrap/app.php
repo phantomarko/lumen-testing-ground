@@ -70,12 +70,12 @@ $commandBus = new League\Tactician\CommandBus(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Infrastructure\Core\Controller\Http\ExceptionHandler::class
+    App\Ui\Rest\Core\Service\ExceptionHandler::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    App\Infrastructure\Core\Controller\Console\ConsoleKernel::class
+    App\Ui\Console\ConsoleKernel::class
 );
 
 $app->singleton(
@@ -129,9 +129,9 @@ $app->configure('app');
 */
 
 $app->router->group([
-    'namespace' => 'App\Infrastructure\Product\Controller\Http',
+    'namespace' => 'App\Ui\Rest\Product\Controller',
 ], function ($router) {
-    require __DIR__ . '/../app/Infrastructure/Product/Resources/routes.php';
+    require __DIR__ . '/../app/Ui/Rest/Product/Resources/routes.php';
 });
 
 return $app;

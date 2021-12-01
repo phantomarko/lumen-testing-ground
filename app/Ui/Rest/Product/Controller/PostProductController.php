@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Infrastructure\Product\Controller\Http;
+namespace App\Ui\Rest\Product\Controller;
 
 use App\Domain\Core\ValueObject\Uuid;
-use App\Infrastructure\Core\Controller\Http\BaseController;
-use App\Infrastructure\Core\Controller\Http\BaseResponse;
-use App\Infrastructure\Product\Converter\IlluminateRequestToCreateProductCommandConverter;
+use App\Ui\Rest\Core\Controller\BaseController;
+use App\Ui\Rest\Core\Response\BaseResponse;
+use App\Ui\Rest\Product\Converter\IlluminateRequestToCreateProductCommandConverter;
 use Illuminate\Http\Request;
 use League\Tactician\CommandBus;
 

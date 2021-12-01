@@ -26,9 +26,6 @@ services:
     arguments:
       - '@App\Infrastructure\Core\Service\RamseyUuidGenerator'
 
-  App\Infrastructure\Core\Service\RamseyUuidGenerator:
-    class: App\Infrastructure\Core\Service\RamseyUuidGenerator
-
   # repositories
   App\Infrastructure\Product\Repository\RandomPokemonProductRepository:
     class: App\Infrastructure\Product\Repository\RandomPokemonProductRepository

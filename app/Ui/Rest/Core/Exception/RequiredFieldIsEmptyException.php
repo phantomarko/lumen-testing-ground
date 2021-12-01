@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Core\Exception;
+namespace App\Ui\Rest\Core\Exception;
 
 class RequiredFieldIsEmptyException extends \Exception
 {

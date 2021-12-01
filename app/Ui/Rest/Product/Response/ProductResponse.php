@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Infrastructure\Product\Controller\Http;
+namespace App\Ui\Rest\Product\Response;
 
 use App\Domain\Product\Model\Product;
-use App\Infrastructure\Core\Controller\Http\BaseResponse;
+use App\Ui\Rest\Core\Response\BaseResponse;
 
 class ProductResponse extends BaseResponse
 {

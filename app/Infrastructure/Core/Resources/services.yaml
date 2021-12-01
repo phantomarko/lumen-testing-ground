@@ -1,0 +1,7 @@
+parameters:
+  # example_parameter: '%env(APP_NAME)%'
+
+services:
+  # services
+  App\Infrastructure\Core\Service\RamseyUuidGenerator:
+    class: App\Infrastructure\Core\Service\RamseyUuidGenerator

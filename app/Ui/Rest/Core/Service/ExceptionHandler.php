@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Core\Controller\Http;
+namespace App\Ui\Rest\Core\Service;
 
 use App\Application\Core\Exception\NotFoundException;
 use Illuminate\Contracts\Support\Responsable;
