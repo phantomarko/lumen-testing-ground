@@ -2,6 +2,7 @@ parameters:
   example_parameter: '%env(APP_NAME)%'
 
 services:
+  # command and query handlers (must have the tags and be public)
   App\Application\Product\Query\GetProductQueryHandler:
     class: App\Application\Product\Query\GetProductQueryHandler
     arguments:
@@ -10,6 +11,25 @@ services:
     tags:
       - { name: tactician.handler, typehints: true }
 
+  App\Application\Product\Command\CreateProductCommandHandler:
+    class: App\Application\Product\Command\CreateProductCommandHandler
+    arguments:
+      - '@App\Domain\Product\Factory\ProductFactory'
+      - '@App\Infrastructure\Product\Repository\VoidProductRepository'
+    public: true
+    tags:
+      - { name: tactician.handler, typehints: true }
+
+  # services
+  App\Domain\Product\Factory\ProductFactory:
+    class: App\Domain\Product\Factory\ProductFactory
+    arguments:
+      - '@App\Infrastructure\Core\Service\RamseyUuidGenerator'
+
+  App\Infrastructure\Core\Service\RamseyUuidGenerator:
+    class: App\Infrastructure\Core\Service\RamseyUuidGenerator
+
+  # repositories
   App\Infrastructure\Product\Repository\RandomPokemonProductRepository:
     class: App\Infrastructure\Product\Repository\RandomPokemonProductRepository
 

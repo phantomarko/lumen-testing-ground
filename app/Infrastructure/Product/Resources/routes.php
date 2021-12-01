@@ -6,9 +6,7 @@ $router->group(['prefix' => 'products'], function () use ($router) {
         return 'GET /products';
     });
 
-    $router->post('/', function () use ($router) {
-        return 'POST /products';
-    });
+    $router->post('/', 'PostProductController@index');
 
     $router->get('{uuid}','GetProductController@index');
 

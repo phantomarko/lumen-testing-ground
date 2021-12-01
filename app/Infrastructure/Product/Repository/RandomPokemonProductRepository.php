@@ -11,6 +11,11 @@ use App\Domain\Product\ValueObject\ProductName;
 
 class RandomPokemonProductRepository implements ProductRepositoryInterface
 {
+    public function save(Product $product): void
+    {
+        // do nothing
+    }
+
     public function findByUuid(Uuid $uuid): ?Product
     {
         return new Product(
