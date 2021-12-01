@@ -5,7 +5,7 @@ namespace App\Infrastructure\Product\Controller\Http;
 use App\Domain\Product\Model\Product;
 use App\Infrastructure\Core\Controller\Http\BaseResponse;
 
-class GetProductResponse extends BaseResponse
+class ProductResponse extends BaseResponse
 {
     public function __construct(Product $product)
     {
