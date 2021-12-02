@@ -1,7 +1,7 @@
 <?php
 
 $mappingFiles = [
-    '../app/Infrastructure/Product/Resources/cqrs_mapping.php',
+    '../app/Ui/Rest/Product/Resources/cqrs_mapping.php',
 ];
 
 $mappings = [];
