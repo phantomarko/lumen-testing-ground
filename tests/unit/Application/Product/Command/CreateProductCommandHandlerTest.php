@@ -18,11 +18,11 @@ class CreateProductCommandHandlerTest extends TestCase
         $name = 'test';
         $priceAmount = 1;
         $priceCurrency = 'EUR';
-        $command = $this->buildCreateProductCommand($name, $priceAmount, $priceCurrency);
-        $builder = $this->buildProductBuilder(new RamseyUuidGenerator());
+        $command = $this->createCreateProductCommand($name, $priceAmount, $priceCurrency);
+        $builder = $this->createProductBuilder(new RamseyUuidGenerator());
         $repository = $this->createMock(ProductRepositoryInterface::class);
         $this->repositoryMockWillSaveAProduct($repository);
-        $handler = $this->buildCreateProductCommandHandler($builder, $repository);
+        $handler = $this->createCreateProductCommandHandler($builder, $repository);
 
         $uuid = $handler->handle($command);
 

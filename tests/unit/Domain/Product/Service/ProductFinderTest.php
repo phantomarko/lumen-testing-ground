@@ -6,16 +6,18 @@ use App\Domain\Product\Exception\ProductNotFoundException;
 use App\Infrastructure\Product\Repository\RandomPokemonProductRepository;
 use App\Infrastructure\Product\Repository\VoidProductRepository;
 use PHPUnit\Framework\TestCase;
+use unit\CoreTestingTrait;
 use unit\ProductTestingTrait;
 
 class ProductFinderTest extends TestCase
 {
     use ProductTestingTrait;
+    use CoreTestingTrait;
 
     public function testProduct_not_exists()
     {
         $uuid = $this->generateUuid();
-        $finder = $this->buildProductFinder(new VoidProductRepository());
+        $finder = $this->createProductFinder(new VoidProductRepository());
 
         $this->expectException(ProductNotFoundException::class);
         $finder->byUuid($uuid);
@@ -24,7 +26,7 @@ class ProductFinderTest extends TestCase
     public function testProduct_exists()
     {
         $uuid = $this->generateUuid();
-        $finder = $this->buildProductFinder(new RandomPokemonProductRepository());
+        $finder = $this->createProductFinder(new RandomPokemonProductRepository());
 
         $product = $finder->byUuid($uuid);
 
