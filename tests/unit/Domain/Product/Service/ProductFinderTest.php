@@ -1,6 +1,6 @@
 <?php
 
-namespace unit\Application\Product\Query;
+namespace unit\Domain\Product\Service;
 
 use App\Domain\Product\Exception\ProductNotFoundException;
 use App\Infrastructure\Product\Repository\RandomPokemonProductRepository;
@@ -8,31 +8,25 @@ use App\Infrastructure\Product\Repository\VoidProductRepository;
 use PHPUnit\Framework\TestCase;
 use unit\ProductTestingTrait;
 
-class GetProductQueryHandlerTest extends TestCase
+class ProductFinderTest extends TestCase
 {
     use ProductTestingTrait;
 
     public function testProduct_not_exists()
     {
         $uuid = $this->generateUuid();
-        $query = $this->buildGetProductQuery($uuid);
-        $queryHandler = $this->buildGetProductQueryHandler(
-            $this->buildProductFinder(new VoidProductRepository())
-        );
+        $finder = $this->buildProductFinder(new VoidProductRepository());
 
         $this->expectException(ProductNotFoundException::class);
-        $queryHandler->handle($query);
+        $finder->byUuid($uuid);
     }
 
     public function testProduct_exists()
     {
         $uuid = $this->generateUuid();
-        $query = $this->buildGetProductQuery($uuid);
-        $queryHandler = $this->buildGetProductQueryHandler(
-            $this->buildProductFinder(new RandomPokemonProductRepository())
-        );
+        $finder = $this->buildProductFinder(new RandomPokemonProductRepository());
 
-        $product = $queryHandler->handle($query);
+        $product = $finder->byUuid($uuid);
 
         $this->assertEquals($uuid, $product->getUuid()->getValue());
     }
