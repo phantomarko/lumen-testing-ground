@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\Product\Exception;
+namespace App\Domain\Product\Exception;
 
-use App\Application\Core\Exception\NotFoundException;
+use App\Domain\Core\Exception\NotFoundException;
 use App\Domain\Core\ValueObject\Uuid;
 
 class ProductNotFoundException extends NotFoundException

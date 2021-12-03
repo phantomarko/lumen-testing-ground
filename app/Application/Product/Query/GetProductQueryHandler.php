@@ -2,27 +2,20 @@
 
 namespace App\Application\Product\Query;
 
-use App\Application\Product\Exception\ProductNotFoundException;
 use App\Domain\Product\Model\Product;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
+use App\Domain\Product\Service\ProductFinder;
 
 class GetProductQueryHandler
 {
-    private ProductRepositoryInterface $productRepository;
+    private ProductFinder $productFinder;
 
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductFinder $productFinder)
     {
-        $this->productRepository = $productRepository;
+        $this->productFinder = $productFinder;
     }
 
     public function handle(GetProductQuery $query): Product
     {
-        $product = $this->productRepository->findByUuid($query->getUuid());
-
-        if (empty($product)) {
-            throw new ProductNotFoundException($query->getUuid());
-        }
-
-        return $product;
+        return $this->productFinder->byUuid($query->getUuid());
     }
 }

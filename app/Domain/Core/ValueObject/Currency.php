@@ -20,12 +20,12 @@ final class Currency extends StringValueObject
         }
     }
 
-    public static function createEuro(): self
+    public static function euro(): self
     {
         return new self(self::EURO);
     }
 
-    public static function createDollar(): self
+    public static function dollar(): self
     {
         return new self(self::DOLLAR);
     }

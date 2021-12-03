@@ -21,7 +21,7 @@ class GetProductController extends BaseController
     public function index(string $uuid): BaseResponse
     {
         /** @var Product $product */
-        $product = $this->commandBus->handle(new GetProductQuery(new Uuid($uuid)));
+        $product = $this->commandBus->handle(new GetProductQuery($uuid));
 
         return $this->createProductResponse($product);
     }

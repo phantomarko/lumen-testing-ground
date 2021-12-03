@@ -6,7 +6,7 @@ services:
   App\Application\Product\Query\GetProductQueryHandler:
     class: App\Application\Product\Query\GetProductQueryHandler
     arguments:
-      - '@App\Infrastructure\Product\Repository\RandomPokemonProductRepository'
+      - '@App\Domain\Product\Service\ProductFinder'
     public: true
     tags:
       - { name: tactician.handler, typehints: true }
@@ -25,6 +25,11 @@ services:
     class: App\Domain\Product\Builder\ProductBuilder
     arguments:
       - '@App\Infrastructure\Core\Service\RamseyUuidGenerator'
+
+  App\Domain\Product\Service\ProductFinder:
+    class: App\Domain\Product\Service\ProductFinder
+    arguments:
+      - '@App\Infrastructure\Product\Repository\RandomPokemonProductRepository'
 
   # repositories
   App\Infrastructure\Product\Repository\RandomPokemonProductRepository:

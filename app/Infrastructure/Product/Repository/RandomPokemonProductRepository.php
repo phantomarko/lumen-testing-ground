@@ -21,7 +21,7 @@ class RandomPokemonProductRepository implements ProductRepositoryInterface
         return new Product(
             $uuid,
             new ProductName($this->getRandomPokemon()),
-            new Price(1, Currency::createEuro())
+            new Price(1, Currency::euro())
         );
     }
 

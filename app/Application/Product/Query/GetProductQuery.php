@@ -2,18 +2,16 @@
 
 namespace App\Application\Product\Query;
 
-use App\Domain\Core\ValueObject\Uuid;
-
 class GetProductQuery
 {
-    private Uuid $uuid;
+    private string $uuid;
 
-    public function __construct(Uuid $uuid)
+    public function __construct(string $uuid)
     {
         $this->uuid = $uuid;
     }
 
-    public function getUuid(): Uuid
+    public function getUuid(): string
     {
         return $this->uuid;
     }
