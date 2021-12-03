@@ -10,6 +10,6 @@ class ProductNotFoundException extends NotFoundException
 
     public function __construct(Uuid $uuid)
     {
-        parent::__construct('The product with uuid "' . $uuid . '" not found');
+        parent::__construct('The product with uuid \'' . $uuid . '\' was not found');
     }
 }

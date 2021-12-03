@@ -17,8 +17,7 @@ class PostProductController extends BaseController
     public function __construct(
         CommandBus $commandBus,
         IlluminateRequestToCreateProductCommandConverter $requestToCommandConverter
-    )
-    {
+    ) {
         $this->commandBus = $commandBus;
         $this->requestToCommandConverter = $requestToCommandConverter;
     }

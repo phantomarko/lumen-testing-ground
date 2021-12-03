@@ -7,7 +7,7 @@ use App\Application\Product\Command\CreateProductCommandHandler;
 use App\Domain\Core\ValueObject\Currency;
 use App\Domain\Core\ValueObject\Price;
 use App\Domain\Core\ValueObject\Uuid;
-use App\Domain\Product\Factory\ProductFactory;
+use App\Domain\Product\Builder\ProductBuilder;
 use App\Domain\Product\Repository\ProductRepositoryInterface;
 use App\Domain\Product\ValueObject\ProductName;
 use App\Infrastructure\Core\Service\RamseyUuidGenerator;
@@ -17,16 +17,17 @@ class CreateProductCommandHandlerTest extends TestCase
 {
     public function testCreate_product()
     {
-        $name = new ProductName('test');
-        $price = new Price(1, Currency::createEuro());
-        $command = new CreateProductCommand($name, $price);
+        $name = 'test';
+        $priceAmount = 1;
+        $priceCurrency = 'EUR';
+        $command = new CreateProductCommand($name, $priceAmount, $priceCurrency);
 
-        $factory = new ProductFactory(new RamseyUuidGenerator());
+        $builder = new ProductBuilder(new RamseyUuidGenerator());
         $repository = $this->createMock(ProductRepositoryInterface::class);
         $repository
             ->expects($this->once())
             ->method('save');
-        $handler = new CreateProductCommandHandler($factory, $repository);
+        $handler = new CreateProductCommandHandler($builder, $repository);
 
         $uuid = $handler->handle($command);
 

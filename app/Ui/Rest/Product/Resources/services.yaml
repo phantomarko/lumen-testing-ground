@@ -14,15 +14,15 @@ services:
   App\Application\Product\Command\CreateProductCommandHandler:
     class: App\Application\Product\Command\CreateProductCommandHandler
     arguments:
-      - '@App\Domain\Product\Factory\ProductFactory'
+      - '@App\Domain\Product\Builder\ProductBuilder'
       - '@App\Infrastructure\Product\Repository\VoidProductRepository'
     public: true
     tags:
       - { name: tactician.handler, typehints: true }
 
   # services
-  App\Domain\Product\Factory\ProductFactory:
-    class: App\Domain\Product\Factory\ProductFactory
+  App\Domain\Product\Builder\ProductBuilder:
+    class: App\Domain\Product\Builder\ProductBuilder
     arguments:
       - '@App\Infrastructure\Core\Service\RamseyUuidGenerator'
 

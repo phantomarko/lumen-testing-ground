@@ -3,6 +3,7 @@
 namespace App\Ui\Rest\Core\Service;
 
 use App\Application\Core\Exception\NotFoundException;
+use App\Ui\Rest\Core\Response\BaseResponse;
 use Illuminate\Contracts\Support\Responsable;
 use Laravel\Lumen\Exceptions\Handler as LumenExceptionHandler;
 use Symfony\Component\HttpFoundation\Response;

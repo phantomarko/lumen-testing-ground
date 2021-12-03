@@ -4,7 +4,7 @@ namespace App\Ui\Rest\Core\Response;
 
 use Illuminate\Http\JsonResponse;
 
-abstract class BaseResponse extends JsonResponse
+class BaseResponse extends JsonResponse
 {
     private const DATA_KEY = 'data';
     private const STATUS_KEY = 'status';

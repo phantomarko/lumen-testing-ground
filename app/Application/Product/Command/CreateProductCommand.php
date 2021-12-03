@@ -2,30 +2,35 @@
 
 namespace App\Application\Product\Command;
 
-use App\Domain\Core\ValueObject\Price;
-use App\Domain\Product\ValueObject\ProductName;
-
 class CreateProductCommand
 {
-    private ProductName $productName;
-    private Price $price;
+    private ?string $name;
+    private ?float $priceAmount;
+    private ?string $priceCurrency;
 
     public function __construct(
-        ProductName $productName,
-        Price $price
+        ?string $name,
+        ?float $priceAmount,
+        ?string $priceCurrency
     )
     {
-        $this->productName = $productName;
-        $this->price = $price;
+        $this->name = $name;
+        $this->priceAmount = $priceAmount;
+        $this->priceCurrency = $priceCurrency;
     }
 
-    public function getProductName(): ProductName
+    public function getName(): ?string
     {
-        return $this->productName;
+        return $this->name;
     }
 
-    public function getPrice(): Price
+    public function getPriceAmount(): ?float
     {
-        return $this->price;
+        return $this->priceAmount;
+    }
+
+    public function getPriceCurrency(): ?string
+    {
+        return $this->priceCurrency;
     }
 }

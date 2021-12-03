@@ -3,23 +3,27 @@
 namespace App\Application\Product\Command;
 
 use App\Domain\Core\ValueObject\Uuid;
-use App\Domain\Product\Factory\ProductFactory;
+use App\Domain\Product\Builder\ProductBuilder;
 use App\Domain\Product\Repository\ProductRepositoryInterface;
 
 class CreateProductCommandHandler
 {
-    private ProductFactory $productFactory;
+    private ProductBuilder $productBuilder;
     private ProductRepositoryInterface $productRepository;
 
-    public function __construct(ProductFactory $productFactory, ProductRepositoryInterface $productRepository)
+    public function __construct(ProductBuilder $productBuilder, ProductRepositoryInterface $productRepository)
     {
-        $this->productFactory = $productFactory;
+        $this->productBuilder = $productBuilder;
         $this->productRepository = $productRepository;
     }
 
     public function handle(CreateProductCommand $command): Uuid
     {
-        $product = $this->productFactory->create($command->getProductName(), $command->getPrice());
+        $product = $this->productBuilder
+            ->generateUuid()
+            ->addName($command->getName())
+            ->addPrice($command->getPriceAmount(), $command->getPriceCurrency())
+            ->build();
         $this->productRepository->save($product);
 
         return $product->getUuid();
