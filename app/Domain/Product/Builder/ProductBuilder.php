@@ -84,6 +84,7 @@ class ProductBuilder
     private function reset(): void
     {
         $this->properties = [
+            self::UUID => null,
             self::NAME => null,
             self::PRICE => null,
         ];
