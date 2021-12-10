@@ -5,3 +5,13 @@ services:
   # services
   App\Infrastructure\Core\Service\RamseyUuidGenerator:
     class: App\Infrastructure\Core\Service\RamseyUuidGenerator
+
+  # doctrine
+  App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory:
+    class: App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory
+
+  Doctrine\ORM\EntityManager:
+    class: Doctrine\ORM\EntityManager
+    factory:
+      - '@App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory'
+      - create

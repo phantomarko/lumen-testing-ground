@@ -10,6 +10,8 @@ services:
       - ./.docker/mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: mys3cur3p4ss
+    ports:
+      - 33006:3306
 
   adminer:
     image: adminer

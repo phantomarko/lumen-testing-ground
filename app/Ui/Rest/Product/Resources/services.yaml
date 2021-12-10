@@ -15,7 +15,7 @@ services:
     class: App\Application\Product\Command\CreateProductCommandHandler
     arguments:
       - '@App\Domain\Product\Builder\ProductBuilder'
-      - '@App\Infrastructure\Product\Repository\VoidProductRepository'
+      - '@App\Infrastructure\Product\Repository\DoctrineProductRepository'
     public: true
     tags:
       - { name: tactician.handler, typehints: true }
@@ -37,3 +37,8 @@ services:
 
   App\Infrastructure\Product\Repository\VoidProductRepository:
     class: App\Infrastructure\Product\Repository\VoidProductRepository
+
+  App\Infrastructure\Product\Repository\DoctrineProductRepository:
+    class: App\Infrastructure\Product\Repository\DoctrineProductRepository
+    arguments:
+      - '@Doctrine\ORM\EntityManager'
