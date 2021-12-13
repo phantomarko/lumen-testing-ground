@@ -1,14 +1,17 @@
 parameters:
   DEBUG: '%env(bool:APP_DEBUG)%'
-  DOCTRINE_CONFIGURATION:
+  DOCTRINE_CONNECTION:
     driver: '%env(DB_DRIVER)%'
     host: '%env(DB_HOST)%'
     port: '%env(DB_PORT)%'
     user: '%env(DB_USERNAME)%'
     password: '%env(DB_PASSWORD)%'
     dbname: '%env(DB_DATABASE)%'
-  DOCTRINE_MAPPINGS: # array of: 'path from project root dir' => 'namespace'
-    app/Infrastructure/Product/Model/Mappings: 'App\Infrastructure\Product\Model'
+  DOCTRINE_ENTITIES_MAPPINGS: # array of: 'path from project root dir' => 'namespace'
+    app/Infrastructure/Product/Model/Mappings: 'App\Domain\Product\Model'
+  DOCTRINE_CUSTOM_TYPE_MAPPINGS: # array of: 'name' => 'namespace'
+    productname: 'App\Infrastructure\Product\ValueObject\CustomMappingType\ProductNameType'
+    price: 'App\Infrastructure\Core\ValueObject\CustomMappingType\PriceType'
 
 services:
   # services
@@ -19,8 +22,9 @@ services:
   App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory:
     class: App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory
     arguments:
-      - '%DOCTRINE_CONFIGURATION%'
-      - '%DOCTRINE_MAPPINGS%'
+      - '%DOCTRINE_CONNECTION%'
+      - '%DOCTRINE_ENTITIES_MAPPINGS%'
+      - '%DOCTRINE_CUSTOM_TYPE_MAPPINGS%'
       - '%DEBUG%'
     public: true # make the container public to be used directly in doctrine migrations
 

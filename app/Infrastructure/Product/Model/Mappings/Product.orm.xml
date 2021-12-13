@@ -3,10 +3,10 @@
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Infrastructure\Product\Model\DoctrineProduct" table="product">
+    <entity name="App\Domain\Product\Model\Product" table="product">
         <id name="uuid" type="string" />
-        <field name="name" type="string"/>
-        <field name="priceAmount" column="price_amount" type="float"/>
-        <field name="priceCurrency" column="price_currency" type="string"/>
+        <field name="name" type="productname"/>
+        <field name="price" type="price"/>
     </entity>
+
 </doctrine-mapping>

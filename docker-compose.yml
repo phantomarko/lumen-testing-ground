@@ -9,7 +9,10 @@ services:
     volumes:
       - ./.docker/mysql:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: mys3cur3p4ss
+      MYSQL_RANDOM_ROOT_PASSWORD: yes
+      MYSQL_USER: mysecureuser
+      MYSQL_PASSWORD: mys3cur3p4ss
+      MYSQL_DATABASE: lumen-test
     ports:
       - 33006:3306
 

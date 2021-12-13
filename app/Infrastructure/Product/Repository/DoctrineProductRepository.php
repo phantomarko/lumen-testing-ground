@@ -5,7 +5,6 @@ namespace App\Infrastructure\Product\Repository;
 use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Model\Product;
 use App\Domain\Product\Repository\ProductRepositoryInterface;
-use App\Infrastructure\Product\Model\DoctrineProduct;
 use Doctrine\ORM\EntityManager;
 
 class DoctrineProductRepository implements ProductRepositoryInterface
@@ -19,7 +18,7 @@ class DoctrineProductRepository implements ProductRepositoryInterface
 
     public function save(Product $product): void
     {
-        $this->entityManager->persist(DoctrineProduct::createFromProduct($product));
+        $this->entityManager->persist($product);
         $this->entityManager->flush();
     }
 
