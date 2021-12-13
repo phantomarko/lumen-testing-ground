@@ -27,15 +27,8 @@ $app = new Laravel\Lumen\Application(
 |--------------------------------------------------------------------------
 */
 
-$containerBuilder = new Symfony\Component\DependencyInjection\ContainerBuilder();
-
-$loader = new Symfony\Component\DependencyInjection\Loader\YamlFileLoader(
-    $containerBuilder,
-    new Symfony\Component\Config\FileLocator(__DIR__ . '/../config/')
-);
-$loader->load('services.yaml');
-
-$containerBuilder->compile(true);
+$containerBuilder = (new \App\Infrastructure\Core\Factory\SymfonyContainerBuilderFactory('config/services.yaml'))
+    ->create();
 
 /*
 |--------------------------------------------------------------------------

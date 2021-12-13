@@ -8,32 +8,40 @@ use Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver;
 
 class DoctrineEntityManagerFactory
 {
+    private const PATH_PREFIX = __DIR__ . '/../../../../';
+
+    private array $connectionConfiguration;
+    private array $mappings;
+    private bool $devMode;
+
+    public function __construct(array $connectionConfiguration, array $mappings, bool $devMode = false)
+    {
+        $this->connectionConfiguration = $connectionConfiguration;
+        $this->mappings = $this->convertMappingsProjectPathsToRelativePaths($mappings);
+        $this->devMode = $devMode;
+    }
+
     public function create(): EntityManager
     {
-        $isDevMode = true;
-
-        $projectRootDir = __DIR__ . '/../../../..';
-        $namespaces = array(
-            $projectRootDir . '/app/Infrastructure/Product/Model/Mappings' => 'App\Infrastructure\Product\Model',
-        );
-        $driver = new SimplifiedXmlDriver($namespaces);
+        $driver = new SimplifiedXmlDriver($this->mappings);
         $driver->setGlobalBasename('global'); // global.orm.xml
 
         $config = new Configuration();
         $config->setMetadataDriverImpl($driver);
         $config->setProxyDir(sys_get_temp_dir());
         $config->setProxyNamespace('DoctrineProxies');
-        $config->setAutoGenerateProxyClasses($isDevMode);
+        $config->setAutoGenerateProxyClasses($this->devMode);
 
-        $dbParams = array(
-            'driver' => 'pdo_mysql',
-            'host' => '127.0.0.1',
-            'port' => '33006',
-            'user' => 'root',
-            'password' => 'mys3cur3p4ss',
-            'dbname' => 'lumen-test',
-        );
+        return EntityManager::create($this->connectionConfiguration, $config);
+    }
 
-        return EntityManager::create($dbParams, $config);
+    private function convertMappingsProjectPathsToRelativePaths(array $mappings): array
+    {
+        $updatedMappings = [];
+        foreach ($mappings as $path => $namespace) {
+            $updatedMappings[self::PATH_PREFIX . $path] = $namespace;
+        }
+
+        return $updatedMappings;
     }
 }
