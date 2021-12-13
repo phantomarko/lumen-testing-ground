@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Infrastructure\Product\ValueObject\CustomMappingType;
+namespace App\Infrastructure\Core\ValueObject\CustomMappingType;
 
-use App\Domain\Product\ValueObject\ProductName;
+use App\Domain\Core\ValueObject\Uuid;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
-class ProductNameType extends StringType
+class UuidType extends StringType
 {
-    private const NAME = 'productname';
+    private const NAME = 'uuid';
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         $value = parent::convertToPHPValue($value, $platform);
 
-        return new ProductName($value);
+        return new Uuid($value);
     }
 
     /**
-     * @param ProductName $value
+     * @param Uuid $value
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {

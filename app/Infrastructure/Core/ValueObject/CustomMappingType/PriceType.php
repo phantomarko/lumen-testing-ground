@@ -5,9 +5,9 @@ namespace App\Infrastructure\Core\ValueObject\CustomMappingType;
 use App\Domain\Core\ValueObject\Currency;
 use App\Domain\Core\ValueObject\Price;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\TextType;
+use Doctrine\DBAL\Types\StringType;
 
-class PriceType extends TextType
+class PriceType extends StringType
 {
     private const NAME = 'price';
 

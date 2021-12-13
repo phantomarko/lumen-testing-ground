@@ -29,7 +29,7 @@ services:
   App\Domain\Product\Service\ProductFinder:
     class: App\Domain\Product\Service\ProductFinder
     arguments:
-      - '@App\Infrastructure\Product\Repository\RandomPokemonProductRepository'
+      - '@App\Infrastructure\Product\Repository\DoctrineProductRepository'
 
   # repositories
   App\Infrastructure\Product\Repository\RandomPokemonProductRepository:

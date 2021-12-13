@@ -10,6 +10,7 @@ parameters:
   DOCTRINE_ENTITIES_MAPPINGS: # array of: 'path from project root dir' => 'namespace'
     app/Infrastructure/Product/Model/Mappings: 'App\Domain\Product\Model'
   DOCTRINE_CUSTOM_TYPE_MAPPINGS: # array of: 'name' => 'namespace'
+    uuid: 'App\Infrastructure\Core\ValueObject\CustomMappingType\UuidType'
     productname: 'App\Infrastructure\Product\ValueObject\CustomMappingType\ProductNameType'
     price: 'App\Infrastructure\Core\ValueObject\CustomMappingType\PriceType'
 

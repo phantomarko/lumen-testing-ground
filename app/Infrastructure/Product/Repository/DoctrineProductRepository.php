@@ -6,6 +6,7 @@ use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Model\Product;
 use App\Domain\Product\Repository\ProductRepositoryInterface;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 
 class DoctrineProductRepository implements ProductRepositoryInterface
 {
@@ -24,6 +25,11 @@ class DoctrineProductRepository implements ProductRepositoryInterface
 
     public function findByUuid(Uuid $uuid): ?Product
     {
-        return null;
+        return $this->getRepository()->find($uuid);
+    }
+
+    private function getRepository(): EntityRepository
+    {
+        return $this->entityManager->getRepository(Product::class);
     }
 }
