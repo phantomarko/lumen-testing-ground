@@ -10,7 +10,7 @@ return [
     ],
 
     'migrations_paths' => [ // namespace => relative path from project 'config' folder
-        'App\Infrastructure\Core\Migrations' => '../app/Infrastructure/Core/Migrations',
+        'App\Infrastructure\Migrations' => '../app/Infrastructure/Migrations',
     ],
 
     'all_or_nothing' => true,
