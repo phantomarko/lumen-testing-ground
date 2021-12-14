@@ -36,7 +36,7 @@ $containerBuilder = (new \App\Infrastructure\Core\Factory\SymfonyContainerBuilde
 |--------------------------------------------------------------------------
 */
 
-$mappings = require '../config/cqrs_mapping.php';
+$mappings = $containerBuilder->getParameter('tactician.mappings');
 $containerLocator = new \League\Tactician\Bundle\Handler\ContainerBasedHandlerLocator(
     $containerBuilder,
     $mappings

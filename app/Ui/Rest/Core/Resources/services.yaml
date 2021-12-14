@@ -1,5 +1,6 @@
 parameters:
   debug: '%env(bool:APP_DEBUG)%'
+
   # doctrine
   doctrine.connection:
     driver: '%env(DB_DRIVER)%'
@@ -14,6 +15,11 @@ parameters:
     uuid: 'App\Infrastructure\Core\ValueObject\CustomMappingType\UuidType'
     productname: 'App\Infrastructure\Product\ValueObject\CustomMappingType\ProductNameType'
     price: 'App\Infrastructure\Core\ValueObject\CustomMappingType\PriceType'
+
+  # tactician
+  tactician.mappings:
+    App\Application\Product\Query\GetProductQuery: 'App\Application\Product\Query\GetProductQueryHandler'
+    App\Application\Product\Command\CreateProductCommand: 'App\Application\Product\Command\CreateProductCommandHandler'
 
 services:
   # services
