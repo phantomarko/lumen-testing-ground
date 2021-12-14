@@ -27,8 +27,9 @@ $app = new Laravel\Lumen\Application(
 |--------------------------------------------------------------------------
 */
 
-$containerBuilder = (new \App\Infrastructure\Core\Factory\SymfonyContainerBuilderFactory('config/services.yaml'))
-    ->create();
+$containerBuilder = (new \App\Infrastructure\Core\Factory\SymfonyContainerBuilderFactory(
+    'config/services.yaml'
+))->create();
 
 /*
 |--------------------------------------------------------------------------
@@ -36,17 +37,10 @@ $containerBuilder = (new \App\Infrastructure\Core\Factory\SymfonyContainerBuilde
 |--------------------------------------------------------------------------
 */
 
-$mappings = $containerBuilder->getParameter('tactician.mappings');
-$containerLocator = new \League\Tactician\Bundle\Handler\ContainerBasedHandlerLocator(
+$commandHandlerMiddleware = (new \App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory(
     $containerBuilder,
-    $mappings
-);
-
-$commandHandlerMiddleware = new League\Tactician\Handler\CommandHandlerMiddleware(
-    new League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor(),
-    $containerLocator,
-    new League\Tactician\Handler\MethodNameInflector\HandleInflector()
-);
+    $containerBuilder->getParameter('tactician.mappings')
+))->create();
 
 $commandBus = new League\Tactician\CommandBus(
     [
