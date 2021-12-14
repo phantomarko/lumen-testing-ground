@@ -1,6 +1,3 @@
-parameters:
-  example_parameter: '%env(APP_NAME)%'
-
 services:
   # command and query handlers (must have the tags and be public)
   App\Application\Product\Query\GetProductQueryHandler:
