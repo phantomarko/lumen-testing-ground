@@ -37,17 +37,8 @@ $containerBuilder = (new \App\Infrastructure\Core\Factory\SymfonyContainerBuilde
 |--------------------------------------------------------------------------
 */
 
-$commandHandlerMiddleware = (new \App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory(
-    $containerBuilder,
-    $containerBuilder->getParameter('tactician.mappings')
-))->create();
-
-$commandBus = new League\Tactician\CommandBus(
-    [
-        $commandHandlerMiddleware,
-        // add other middlewares...
-    ]
-);
+/** @var League\Tactician\CommandBus $commandBus */
+$commandBus = $containerBuilder->get('League\Tactician\CommandBus');
 
 /*
 |--------------------------------------------------------------------------

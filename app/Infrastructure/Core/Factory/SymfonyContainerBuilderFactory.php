@@ -9,6 +9,7 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 class SymfonyContainerBuilderFactory
 {
     private const PATH_PREFIX = __DIR__ . '/../../../../';
+    private const SERVICE_ALIAS = 'container_builder';
 
     private string $yamlPath;
 
@@ -31,6 +32,8 @@ class SymfonyContainerBuilderFactory
         $loader->load($this->yamlPath);
 
         $containerBuilder->compile(true);
+
+        $containerBuilder->set(self::SERVICE_ALIAS, $containerBuilder);
 
         return $containerBuilder;
     }

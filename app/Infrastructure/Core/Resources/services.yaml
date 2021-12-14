@@ -22,9 +22,9 @@ parameters:
     App\Application\Product\Command\CreateProductCommand: 'App\Application\Product\Command\CreateProductCommandHandler'
 
 services:
-  # services
-  App\Infrastructure\Core\Service\RamseyUuidGenerator:
-    class: App\Infrastructure\Core\Service\RamseyUuidGenerator
+  # container builder
+  container_builder:
+    synthetic: true # must be injected manually after instance the object
 
   # doctrine
   App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory:
@@ -34,10 +34,39 @@ services:
       - '%doctrine.entities_mapping%'
       - '%doctrine.custom_type_mappings%'
       - '%debug%'
-    public: true # make the container public to be used directly in doctrine migrations
+    public: true # make it public to be used directly in doctrine migrations
 
   Doctrine\ORM\EntityManager:
     class: Doctrine\ORM\EntityManager
     factory:
       - '@App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory'
       - create
+
+  # tactician
+  App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory:
+    class: App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory
+    arguments:
+      - '@container_builder'
+      - '%tactician.mappings%'
+
+  League\Tactician\Handler\CommandHandlerMiddleware:
+    class: League\Tactician\Handler\CommandHandlerMiddleware
+    factory:
+      - '@App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory'
+      - create
+
+  App\Infrastructure\Core\Factory\TacticianCommandBusFactory:
+    class: App\Infrastructure\Core\Factory\TacticianCommandBusFactory
+    arguments:
+      - [ '@League\Tactician\Handler\CommandHandlerMiddleware' ]
+
+  League\Tactician\CommandBus:
+    class: League\Tactician\CommandBus
+    factory:
+      - '@App\Infrastructure\Core\Factory\TacticianCommandBusFactory'
+      - create
+    public: true # make it public to be used directly in bootstrap/app.php
+
+  # services
+  App\Infrastructure\Core\Service\RamseyUuidGenerator:
+    class: App\Infrastructure\Core\Service\RamseyUuidGenerator
