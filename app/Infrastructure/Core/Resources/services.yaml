@@ -55,10 +55,21 @@ services:
       - '@App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory'
       - create
 
+  App\Infrastructure\Core\Factory\DoctrineTransactionMiddlewareFactory:
+    class: App\Infrastructure\Core\Factory\DoctrineTransactionMiddlewareFactory
+    arguments:
+      - '@Doctrine\ORM\EntityManager'
+
+  App\Infrastructure\Core\Bus\DoctrineTransactionMiddleware:
+    class: App\Infrastructure\Core\Bus\DoctrineTransactionMiddleware
+    factory:
+      - '@App\Infrastructure\Core\Factory\DoctrineTransactionMiddlewareFactory'
+      - create
+
   App\Infrastructure\Core\Factory\CommandBusFactory:
     class: App\Infrastructure\Core\Factory\CommandBusFactory
     arguments:
-      - [ '@League\Tactician\Handler\CommandHandlerMiddleware' ]
+      - [ '@App\Infrastructure\Core\Bus\DoctrineTransactionMiddleware', '@League\Tactician\Handler\CommandHandlerMiddleware' ]
 
   App\Infrastructure\Core\Bus\CommandBus:
     class: App\Infrastructure\Core\Bus\CommandBus
