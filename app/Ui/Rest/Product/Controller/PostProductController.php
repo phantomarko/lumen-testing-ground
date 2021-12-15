@@ -3,11 +3,11 @@
 namespace App\Ui\Rest\Product\Controller;
 
 use App\Domain\Core\ValueObject\Uuid;
+use App\Infrastructure\Core\Bus\CommandBus;
 use App\Ui\Rest\Core\Controller\BaseController;
 use App\Ui\Rest\Core\Response\BaseResponse;
 use App\Ui\Rest\Product\Converter\IlluminateRequestToCreateProductCommandConverter;
 use Illuminate\Http\Request;
-use League\Tactician\CommandBus;
 
 class PostProductController extends BaseController
 {

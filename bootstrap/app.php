@@ -37,8 +37,10 @@ $containerBuilder = (new \App\Infrastructure\Core\Factory\SymfonyContainerBuilde
 |--------------------------------------------------------------------------
 */
 
-/** @var League\Tactician\CommandBus $commandBus */
-$commandBus = $containerBuilder->get('League\Tactician\CommandBus');
+/** @var App\Infrastructure\Core\Bus\CommandBus $commandBus */
+$commandBus = $containerBuilder->get('App\Infrastructure\Core\Bus\CommandBus');
+/** @var App\Infrastructure\Core\Bus\QueryBus $queryBus */
+$queryBus = $containerBuilder->get('App\Infrastructure\Core\Bus\QueryBus');
 
 /*
 |--------------------------------------------------------------------------
@@ -64,9 +66,16 @@ $app->singleton(
 );
 
 $app->singleton(
-    League\Tactician\CommandBus::class,
+    App\Infrastructure\Core\Bus\CommandBus::class,
     function () use ($commandBus) {
         return $commandBus;
+    }
+);
+
+$app->singleton(
+    App\Infrastructure\Core\Bus\QueryBus::class,
+    function () use ($queryBus) {
+        return $queryBus;
     }
 );
 

@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Core\Factory;
 
-use League\Tactician\CommandBus;
+use App\Infrastructure\Core\Bus\QueryBus;
 
-class TacticianCommandBusFactory
+class QueryBusFactory
 {
     private array $middleware;
 
@@ -13,8 +13,8 @@ class TacticianCommandBusFactory
         $this->middleware = $middleware;
     }
 
-    public function create(): CommandBus
+    public function create(): QueryBus
     {
-        return new CommandBus($this->middleware);
+        return new QueryBus($this->middleware);
     }
 }

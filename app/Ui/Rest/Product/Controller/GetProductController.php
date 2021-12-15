@@ -3,25 +3,24 @@
 namespace App\Ui\Rest\Product\Controller;
 
 use App\Application\Product\Query\GetProductQuery;
-use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Model\Product;
+use App\Infrastructure\Core\Bus\QueryBus;
 use App\Ui\Rest\Core\Controller\BaseController;
 use App\Ui\Rest\Core\Response\BaseResponse;
-use League\Tactician\CommandBus;
 
 class GetProductController extends BaseController
 {
-    private CommandBus $commandBus;
+    private QueryBus $queryBus;
 
-    public function __construct(CommandBus $commandBus)
+    public function __construct(QueryBus $queryBus)
     {
-        $this->commandBus = $commandBus;
+        $this->queryBus = $queryBus;
     }
 
     public function index(string $uuid): BaseResponse
     {
         /** @var Product $product */
-        $product = $this->commandBus->handle(new GetProductQuery($uuid));
+        $product = $this->queryBus->handle(new GetProductQuery($uuid));
 
         return $this->createProductResponse($product);
     }

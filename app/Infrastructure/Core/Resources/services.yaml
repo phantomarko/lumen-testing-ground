@@ -55,15 +55,27 @@ services:
       - '@App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory'
       - create
 
-  App\Infrastructure\Core\Factory\TacticianCommandBusFactory:
-    class: App\Infrastructure\Core\Factory\TacticianCommandBusFactory
+  App\Infrastructure\Core\Factory\CommandBusFactory:
+    class: App\Infrastructure\Core\Factory\CommandBusFactory
     arguments:
       - [ '@League\Tactician\Handler\CommandHandlerMiddleware' ]
 
-  League\Tactician\CommandBus:
-    class: League\Tactician\CommandBus
+  App\Infrastructure\Core\Bus\CommandBus:
+    class: App\Infrastructure\Core\Bus\CommandBus
     factory:
-      - '@App\Infrastructure\Core\Factory\TacticianCommandBusFactory'
+      - '@App\Infrastructure\Core\Factory\CommandBusFactory'
+      - create
+    public: true # make it public to be used directly in bootstrap/app.php
+
+  App\Infrastructure\Core\Factory\QueryBusFactory:
+    class: App\Infrastructure\Core\Factory\QueryBusFactory
+    arguments:
+      - [ '@League\Tactician\Handler\CommandHandlerMiddleware' ]
+
+  App\Infrastructure\Core\Bus\QueryBus:
+    class: App\Infrastructure\Core\Bus\QueryBus
+    factory:
+      - '@App\Infrastructure\Core\Factory\QueryBusFactory'
       - create
     public: true # make it public to be used directly in bootstrap/app.php
 
