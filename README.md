@@ -1,24 +1,69 @@
-# Lumen PHP Framework
+# Lumen Project 🟥
+This is a project created from Laravel Lumen to learn good practices in DDD, clean architectures and design patterns. 
+Also it has example uses and integrations of the most common and useful packages:
+* Tactician Command Bus
+* Symfony Service Container
+* Doctrine Entity Manager
+* Doctrine Document Manager
+* ... 
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+## PHPUnit ✅
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Run all the unit tests
+```bash
+$ ./vendor/bin/phpunit tests
+```
 
-## Official Documentation
+Run a concrete test or set of tests
+```bash
+$ ./vendor/bin/phpunit tests/unit/Application/Product/Command/CreateProductCommandHandlerTest.php
+```
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+## Doctrine Migrations 🗃️
 
-## Contributing
+Display list of all commands
+```bash
+$ ./vendor/bin/doctrine-migrations list
+```
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Generate a migration by comparing your current database to your mapping information
+```bash
+$ ./vendor/bin/doctrine-migrations diff
+```
 
-## Security Vulnerabilities
+Execute a migration to a specified version or the latest available version
+```bash
+$ ./vendor/bin/doctrine-migrations migrate
+```
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Docker 🐋
 
-## License
+Start
+```bash
+$ docker-compose up -d
+```
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Stop
+```bash
+$ docker-compose down --remove-orphans
+```
+
+Access to mongo shell directly in the container
+```bash
+$ docker run -it --rm --network app-network mongo \
+    mongo --host mongo \
+        -u root \
+        -p example \
+        --authenticationDatabase admin \
+        some-db
+```
+
+## Web DB Admins 🍬
+
+### Adminer (MySQL)
+
+[http://localhost:8080/?server=db](http://localhost:8080/?server=db)
+
+### Mongo Express (MongoDB)
+
+[http://localhost:8081/?server=db](http://localhost:8081/?server=db)

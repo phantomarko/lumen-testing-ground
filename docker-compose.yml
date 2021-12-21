@@ -1,18 +1,29 @@
 version: '3.8'
 
+networks:
+  app-network:
+    name: app-network
+    driver: bridge
+
 services:
 
   mongo:
     image: mongo
+    container_name: mongo
     restart: always
     volumes:
       - ./.docker/mongodb:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    networks:
+      - app-network
 
   mongo-express:
     image: mongo-express
+    container_name: mongo-express
     restart: always
     ports:
       - 8081:8081
@@ -20,9 +31,12 @@ services:
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
       ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
+    networks:
+      - app-network
 
-  db:
+  mysql:
     image: mysql
+    container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
@@ -34,9 +48,14 @@ services:
       MYSQL_DATABASE: lumen-test
     ports:
       - 33006:3306
+    networks:
+      - app-network
 
   adminer:
     image: adminer
+    container_name: adminer
     restart: always
     ports:
       - 8080:8080
+    networks:
+      - app-network
