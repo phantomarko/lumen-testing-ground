@@ -7,7 +7,7 @@ Also it has example uses and integrations of the most common and useful packages
 * Doctrine Document Manager
 * ... 
 
-## Setup
+## Setup ⚙️
 
 _Work in progress_
 
