@@ -7,6 +7,10 @@ Also it has example uses and integrations of the most common and useful packages
 * Doctrine Document Manager
 * ... 
 
+## Setup
+
+_Work in progress_
+
 ## PHPUnit ✅
 
 Run all the unit tests
