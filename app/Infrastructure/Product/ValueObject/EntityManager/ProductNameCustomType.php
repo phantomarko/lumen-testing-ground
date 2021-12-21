@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Infrastructure\Product\ValueObject\CustomMappingType;
+namespace App\Infrastructure\Product\ValueObject\EntityManager;
 
 use App\Domain\Product\ValueObject\ProductName;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
-class ProductNameType extends StringType
+class ProductNameCustomType extends StringType
 {
     private const NAME = 'productname';
 

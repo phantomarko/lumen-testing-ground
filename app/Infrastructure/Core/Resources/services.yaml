@@ -12,9 +12,9 @@ parameters:
   doctrine.entities_mapping: # array of: 'path from project root dir' => 'namespace'
     app/Infrastructure/Product/Model/Mappings: 'App\Domain\Product\Model'
   doctrine.custom_type_mappings: # array of: 'name' => 'namespace'
-    uuid: 'App\Infrastructure\Core\ValueObject\CustomMappingType\UuidType'
-    productname: 'App\Infrastructure\Product\ValueObject\CustomMappingType\ProductNameType'
-    price: 'App\Infrastructure\Core\ValueObject\CustomMappingType\PriceType'
+    uuid: 'App\Infrastructure\Core\ValueObject\EntityManager\UuidCustomType'
+    productname: 'App\Infrastructure\Product\ValueObject\EntityManager\ProductNameCustomType'
+    price: 'App\Infrastructure\Core\ValueObject\EntityManager\PriceCustomType'
 
   # tactician
   tactician.mappings:

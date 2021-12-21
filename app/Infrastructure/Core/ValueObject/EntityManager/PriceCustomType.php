@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Infrastructure\Core\ValueObject\CustomMappingType;
+namespace App\Infrastructure\Core\ValueObject\EntityManager;
 
 use App\Domain\Core\ValueObject\Currency;
 use App\Domain\Core\ValueObject\Price;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
-class PriceType extends StringType
+class PriceCustomType extends StringType
 {
     private const NAME = 'price';
 

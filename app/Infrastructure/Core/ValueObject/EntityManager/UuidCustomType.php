@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Infrastructure\Core\ValueObject\CustomMappingType;
+namespace App\Infrastructure\Core\ValueObject\EntityManager;
 
 use App\Domain\Core\ValueObject\Uuid;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
-class UuidType extends StringType
+class UuidCustomType extends StringType
 {
     private const NAME = 'uuid';
 
