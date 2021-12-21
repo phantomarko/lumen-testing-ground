@@ -66,8 +66,8 @@ $ docker run -it --rm --network app-network mongo \
 
 ### Adminer (MySQL)
 
-[http://localhost:8080/?server=db](http://localhost:8080/?server=db)
+[http://localhost:8080/?server=mysql](http://localhost:8080/?server=mysql)
 
 ### Mongo Express (MongoDB)
 
-[http://localhost:8081/?server=db](http://localhost:8081/?server=db)
+[http://localhost:8081/](http://localhost:8081/)
