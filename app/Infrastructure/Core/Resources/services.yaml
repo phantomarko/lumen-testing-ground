@@ -10,7 +10,7 @@ parameters:
     password: '%env(DB_PASSWORD)%'
     dbname: '%env(DB_DATABASE)%'
   doctrine.entities_mapping: # array of: 'path from project root dir' => 'namespace'
-    app/Infrastructure/Product/Model/Mappings: 'App\Domain\Product\Model'
+    app/Infrastructure/Product/Model/EntityManager: 'App\Domain\Product\Model'
   doctrine.custom_type_mappings: # array of: 'name' => 'namespace'
     uuid: 'App\Infrastructure\Core\ValueObject\EntityManager\UuidCustomType'
     productname: 'App\Infrastructure\Product\ValueObject\EntityManager\ProductNameCustomType'
