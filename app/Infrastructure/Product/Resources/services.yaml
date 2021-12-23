@@ -1,7 +1,6 @@
 services:
   # command and query handlers (must have the tags and be public)
   App\Application\Product\Query\GetProductQueryHandler:
-    class: App\Application\Product\Query\GetProductQueryHandler
     arguments:
       - '@App\Domain\Product\Service\ProductFinder'
     public: true
@@ -9,7 +8,6 @@ services:
       - { name: tactician.handler, typehints: true }
 
   App\Application\Product\Command\CreateProductCommandHandler:
-    class: App\Application\Product\Command\CreateProductCommandHandler
     arguments:
       - '@App\Domain\Product\Builder\ProductBuilder'
       - '@App\Infrastructure\Product\Repository\DocumentManagerProductRepository' # change to use MySQL or MongoDB
@@ -19,24 +17,19 @@ services:
 
   # services
   App\Domain\Product\Builder\ProductBuilder:
-    class: App\Domain\Product\Builder\ProductBuilder
     arguments:
       - '@App\Infrastructure\Core\Service\RamseyUuidGenerator'
 
   App\Domain\Product\Service\ProductFinder:
-    class: App\Domain\Product\Service\ProductFinder
     arguments:
       - '@App\Infrastructure\Product\Repository\DocumentManagerProductRepository' # change to use MySQL or MongoDB
 
   # repositories
   App\Infrastructure\Product\Repository\RandomPokemonProductRepository:
-    class: App\Infrastructure\Product\Repository\RandomPokemonProductRepository
 
   App\Infrastructure\Product\Repository\VoidProductRepository:
-    class: App\Infrastructure\Product\Repository\VoidProductRepository
 
   App\Infrastructure\Product\Repository\EntityManagerProductRepository:
-    class: App\Infrastructure\Product\Repository\EntityManagerProductRepository
     arguments:
       - '@Doctrine\ORM\EntityManager'
 

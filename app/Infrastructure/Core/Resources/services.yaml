@@ -41,7 +41,6 @@ services:
 
   # entity manager
   App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory:
-    class: App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory
     arguments:
       - '%entity_manager.connection%'
       - '%entity_manager.entities_mapping%'
@@ -50,7 +49,6 @@ services:
     public: true # make it public to be used directly in doctrine migrations
 
   Doctrine\ORM\EntityManager:
-    class: Doctrine\ORM\EntityManager
     factory:
       - '@App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory'
       - create
@@ -71,13 +69,11 @@ services:
 
   # tactician
   App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory:
-    class: App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory
     arguments:
       - '@container_builder'
       - '%tactician.mappings%'
 
   League\Tactician\Handler\CommandHandlerMiddleware:
-    class: League\Tactician\Handler\CommandHandlerMiddleware
     factory:
       - '@App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory'
       - create
@@ -91,7 +87,6 @@ services:
       - '@Doctrine\ODM\MongoDB\DocumentManager'
 
   App\Infrastructure\Core\Factory\CommandBusFactory:
-    class: App\Infrastructure\Core\Factory\CommandBusFactory
     arguments:
       - [
           '@App\Infrastructure\Core\Bus\EntityManagerTransactionMiddleware',
@@ -100,19 +95,16 @@ services:
       ]
 
   App\Infrastructure\Core\Bus\CommandBus:
-    class: App\Infrastructure\Core\Bus\CommandBus
     factory:
       - '@App\Infrastructure\Core\Factory\CommandBusFactory'
       - create
     public: true # make it public to be used directly in bootstrap/app.php
 
   App\Infrastructure\Core\Factory\QueryBusFactory:
-    class: App\Infrastructure\Core\Factory\QueryBusFactory
     arguments:
       - [ '@League\Tactician\Handler\CommandHandlerMiddleware' ]
 
   App\Infrastructure\Core\Bus\QueryBus:
-    class: App\Infrastructure\Core\Bus\QueryBus
     factory:
       - '@App\Infrastructure\Core\Factory\QueryBusFactory'
       - create
@@ -120,4 +112,3 @@ services:
 
   # services
   App\Infrastructure\Core\Service\RamseyUuidGenerator:
-    class: App\Infrastructure\Core\Service\RamseyUuidGenerator
