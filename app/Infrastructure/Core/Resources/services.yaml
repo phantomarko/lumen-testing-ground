@@ -86,28 +86,18 @@ services:
     arguments:
       - '@Doctrine\ODM\MongoDB\DocumentManager'
 
-  App\Infrastructure\Core\Factory\CommandBusFactory:
+  App\Infrastructure\Core\Bus\CommandBus:
     arguments:
       - [
           '@App\Infrastructure\Core\Bus\EntityManagerTransactionMiddleware',
           '@App\Infrastructure\Core\Bus\DocumentManagerTransactionMiddleware',
           '@League\Tactician\Handler\CommandHandlerMiddleware'
       ]
-
-  App\Infrastructure\Core\Bus\CommandBus:
-    factory:
-      - '@App\Infrastructure\Core\Factory\CommandBusFactory'
-      - create
     public: true # make it public to be used directly in bootstrap/app.php
 
-  App\Infrastructure\Core\Factory\QueryBusFactory:
+  App\Infrastructure\Core\Bus\QueryBus:
     arguments:
       - [ '@League\Tactician\Handler\CommandHandlerMiddleware' ]
-
-  App\Infrastructure\Core\Bus\QueryBus:
-    factory:
-      - '@App\Infrastructure\Core\Factory\QueryBusFactory'
-      - create
     public: true # make it public to be used directly in bootstrap/app.php
 
   # services
