@@ -10,7 +10,7 @@ return [
     ],
 
     'migrations_paths' => [ // namespace => relative path from project 'config' folder
-        'App\Infrastructure\Migrations\SQL' => '../app/Infrastructure/Migrations/SQL',
+        'App\Infrastructure\Migrations\EntityManager' => '../app/Infrastructure/Migrations/EntityManager',
     ],
 
     'all_or_nothing' => true,

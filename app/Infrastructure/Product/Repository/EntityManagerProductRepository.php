@@ -8,7 +8,7 @@ use App\Domain\Product\Repository\ProductRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
-class DoctrineProductRepository implements ProductRepositoryInterface
+class EntityManagerProductRepository implements ProductRepositoryInterface
 {
     private EntityManagerInterface $entityManager;
 

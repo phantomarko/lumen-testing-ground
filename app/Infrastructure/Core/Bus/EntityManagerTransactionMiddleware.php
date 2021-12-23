@@ -3,11 +3,10 @@
 namespace App\Infrastructure\Core\Bus;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use League\Tactician\Middleware;
 use Throwable;
 
-class DoctrineTransactionMiddleware implements Middleware
+class EntityManagerTransactionMiddleware implements Middleware
 {
     private EntityManagerInterface $entityManager;
 
@@ -25,10 +24,6 @@ class DoctrineTransactionMiddleware implements Middleware
 
             $this->entityManager->flush();
             $this->entityManager->commit();
-        } catch (Exception $e) {
-            $this->rollbackTransaction();
-
-            throw $e;
         } catch (Throwable $e) {
             $this->rollbackTransaction();
 
@@ -49,7 +44,4 @@ class DoctrineTransactionMiddleware implements Middleware
 
         $this->entityManager->close();
     }
-}
-
-{
 }

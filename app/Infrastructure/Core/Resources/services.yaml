@@ -1,20 +1,33 @@
 parameters:
   debug: '%env(bool:APP_DEBUG)%'
 
-  # doctrine
-  doctrine.connection:
-    driver: '%env(DB_DRIVER)%'
-    host: '%env(DB_HOST)%'
-    port: '%env(DB_PORT)%'
-    user: '%env(DB_USERNAME)%'
-    password: '%env(DB_PASSWORD)%'
-    dbname: '%env(DB_DATABASE)%'
-  doctrine.entities_mapping: # array of: 'path from project root dir' => 'namespace'
+  # entity manager
+  entity_manager.connection:
+    driver: '%env(EM_DRIVER)%'
+    host: '%env(EM_HOST)%'
+    port: '%env(EM_PORT)%'
+    user: '%env(EM_USERNAME)%'
+    password: '%env(EM_PASSWORD)%'
+    dbname: '%env(EM_DATABASE)%'
+  entity_manager.entities_mapping: # array of: 'path from project root dir' => 'namespace'
     app/Infrastructure/Product/Model/EntityManager: 'App\Domain\Product\Model'
-  doctrine.custom_type_mappings: # array of: 'name' => 'namespace'
+  entity_manager.custom_type_mappings: # array of: 'name' => 'namespace'
     uuid: 'App\Infrastructure\Core\ValueObject\EntityManager\UuidCustomType'
     productname: 'App\Infrastructure\Product\ValueObject\EntityManager\ProductNameCustomType'
     price: 'App\Infrastructure\Core\ValueObject\EntityManager\PriceCustomType'
+
+  # document manager
+  document_manager.connection_uri: 'mongodb://%env(DM_USERNAME)%:%env(DM_PASSWORD)%@%env(DM_HOST)%:%env(DM_PORT)%'
+  document_manager.connection_uri_options:
+    authSource: '%env(DM_AUTH_SOURCE)%'
+    readPreference: '%env(DM_READ_PREFERENCE)%'
+  document_manager.database: '%env(DM_DATABASE)%'
+  document_manager.entities_mapping:
+    app/Infrastructure/Product/Model/DocumentManager: 'App\Domain\Product\Model'
+  document_manager.custom_type_mappings:
+    uuid: 'App\Infrastructure\Core\ValueObject\DocumentManager\UuidCustomType'
+    productname: 'App\Infrastructure\Product\ValueObject\DocumentManager\ProductNameCustomType'
+    price: 'App\Infrastructure\Core\ValueObject\DocumentManager\PriceCustomType'
 
   # tactician
   tactician.mappings:
@@ -26,13 +39,13 @@ services:
   container_builder:
     synthetic: true # must be injected manually after instance the object
 
-  # doctrine
+  # entity manager
   App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory:
     class: App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory
     arguments:
-      - '%doctrine.connection%'
-      - '%doctrine.entities_mapping%'
-      - '%doctrine.custom_type_mappings%'
+      - '%entity_manager.connection%'
+      - '%entity_manager.entities_mapping%'
+      - '%entity_manager.custom_type_mappings%'
       - '%debug%'
     public: true # make it public to be used directly in doctrine migrations
 
@@ -40,6 +53,20 @@ services:
     class: Doctrine\ORM\EntityManager
     factory:
       - '@App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory'
+      - create
+
+  # document manager
+  App\Infrastructure\Core\Factory\DoctrineDocumentManagerFactory:
+    arguments:
+      - '%document_manager.connection_uri%'
+      - '%document_manager.connection_uri_options%'
+      - '%document_manager.database%'
+      - '%document_manager.entities_mapping%'
+      - '%document_manager.custom_type_mappings%'
+
+  Doctrine\ODM\MongoDB\DocumentManager:
+    factory:
+      - '@App\Infrastructure\Core\Factory\DoctrineDocumentManagerFactory'
       - create
 
   # tactician
@@ -55,21 +82,22 @@ services:
       - '@App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory'
       - create
 
-  App\Infrastructure\Core\Factory\DoctrineTransactionMiddlewareFactory:
-    class: App\Infrastructure\Core\Factory\DoctrineTransactionMiddlewareFactory
+  App\Infrastructure\Core\Bus\EntityManagerTransactionMiddleware:
     arguments:
       - '@Doctrine\ORM\EntityManager'
 
-  App\Infrastructure\Core\Bus\DoctrineTransactionMiddleware:
-    class: App\Infrastructure\Core\Bus\DoctrineTransactionMiddleware
-    factory:
-      - '@App\Infrastructure\Core\Factory\DoctrineTransactionMiddlewareFactory'
-      - create
+  App\Infrastructure\Core\Bus\DocumentManagerTransactionMiddleware:
+    arguments:
+      - '@Doctrine\ODM\MongoDB\DocumentManager'
 
   App\Infrastructure\Core\Factory\CommandBusFactory:
     class: App\Infrastructure\Core\Factory\CommandBusFactory
     arguments:
-      - [ '@App\Infrastructure\Core\Bus\DoctrineTransactionMiddleware', '@League\Tactician\Handler\CommandHandlerMiddleware' ]
+      - [
+          '@App\Infrastructure\Core\Bus\EntityManagerTransactionMiddleware',
+          '@App\Infrastructure\Core\Bus\DocumentManagerTransactionMiddleware',
+          '@League\Tactician\Handler\CommandHandlerMiddleware'
+      ]
 
   App\Infrastructure\Core\Bus\CommandBus:
     class: App\Infrastructure\Core\Bus\CommandBus
