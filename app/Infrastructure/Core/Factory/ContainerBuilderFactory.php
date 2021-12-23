@@ -6,7 +6,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class SymfonyContainerBuilderFactory
+class ContainerBuilderFactory
 {
     private const PATH_PREFIX = __DIR__ . '/../../../../';
     private const SERVICE_ALIAS = 'container_builder';

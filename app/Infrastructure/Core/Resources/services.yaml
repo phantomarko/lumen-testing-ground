@@ -40,7 +40,7 @@ services:
     synthetic: true # must be injected manually after instance the object
 
   # entity manager
-  App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory:
+  App\Infrastructure\Core\Factory\EntityManagerFactory:
     arguments:
       - '%entity_manager.connection%'
       - '%entity_manager.entities_mapping%'
@@ -50,11 +50,11 @@ services:
 
   Doctrine\ORM\EntityManager:
     factory:
-      - '@App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory'
+      - '@App\Infrastructure\Core\Factory\EntityManagerFactory'
       - create
 
   # document manager
-  App\Infrastructure\Core\Factory\DoctrineDocumentManagerFactory:
+  App\Infrastructure\Core\Factory\DocumentManagerFactory:
     arguments:
       - '%document_manager.connection_uri%'
       - '%document_manager.connection_uri_options%'
@@ -64,18 +64,18 @@ services:
 
   Doctrine\ODM\MongoDB\DocumentManager:
     factory:
-      - '@App\Infrastructure\Core\Factory\DoctrineDocumentManagerFactory'
+      - '@App\Infrastructure\Core\Factory\DocumentManagerFactory'
       - create
 
   # tactician
-  App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory:
+  App\Infrastructure\Core\Factory\CommandHandlerMiddlewareFactory:
     arguments:
       - '@container_builder'
       - '%tactician.mappings%'
 
   League\Tactician\Handler\CommandHandlerMiddleware:
     factory:
-      - '@App\Infrastructure\Core\Factory\TacticianCommandHandlerMiddlewareFactory'
+      - '@App\Infrastructure\Core\Factory\CommandHandlerMiddlewareFactory'
       - create
 
   App\Infrastructure\Core\Bus\EntityManagerTransactionMiddleware:

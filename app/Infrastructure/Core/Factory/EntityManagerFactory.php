@@ -7,7 +7,7 @@ use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\Driver\SimplifiedXmlDriver;
 
-class DoctrineEntityManagerFactory
+class EntityManagerFactory
 {
     private const PATH_PREFIX = __DIR__ . '/../../../../';
 

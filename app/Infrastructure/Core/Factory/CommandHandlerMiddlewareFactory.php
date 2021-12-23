@@ -8,7 +8,7 @@ use League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor;
 use League\Tactician\Handler\MethodNameInflector\HandleInflector;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class TacticianCommandHandlerMiddlewareFactory
+class CommandHandlerMiddlewareFactory
 {
     private ContainerBuilder $containerBuilder;
     private array $mappings;

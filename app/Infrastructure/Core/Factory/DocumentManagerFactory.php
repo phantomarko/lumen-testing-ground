@@ -8,7 +8,7 @@ use Doctrine\ODM\MongoDB\Mapping\Driver\SimplifiedXmlDriver;
 use Doctrine\ODM\MongoDB\Types\Type;
 use MongoDB\Client;
 
-class DoctrineDocumentManagerFactory
+class DocumentManagerFactory
 {
     private const PATH_PREFIX = __DIR__ . '/../../../../';
 

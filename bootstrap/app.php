@@ -27,7 +27,7 @@ $app = new Laravel\Lumen\Application(
 |--------------------------------------------------------------------------
 */
 
-$containerBuilder = (new \App\Infrastructure\Core\Factory\SymfonyContainerBuilderFactory(
+$containerBuilder = (new \App\Infrastructure\Core\Factory\ContainerBuilderFactory(
     'config/services.yaml'
 ))->create();
 

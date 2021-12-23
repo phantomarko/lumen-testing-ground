@@ -6,8 +6,8 @@
 
 require 'vendor/autoload.php';
 
-use App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory;
-use App\Infrastructure\Core\Factory\SymfonyContainerBuilderFactory;
+use App\Infrastructure\Core\Factory\EntityManagerFactory;
+use App\Infrastructure\Core\Factory\ContainerBuilderFactory;
 use Doctrine\Migrations\Configuration\Migration\PhpFile;
 use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 use Doctrine\Migrations\DependencyFactory;
@@ -17,11 +17,11 @@ use Laravel\Lumen\Bootstrap\LoadEnvironmentVariables;
     dirname(__DIR__), '.env'
 ))->bootstrap();
 
-$containerBuilder = (new SymfonyContainerBuilderFactory('config/services.yaml'))
+$containerBuilder = (new ContainerBuilderFactory('config/services.yaml'))
     ->create();
 
-/** @var DoctrineEntityManagerFactory $entityManagerFactory */
-$entityManagerFactory = $containerBuilder->get('App\Infrastructure\Core\Factory\DoctrineEntityManagerFactory');
+/** @var EntityManagerFactory $entityManagerFactory */
+$entityManagerFactory = $containerBuilder->get('App\Infrastructure\Core\Factory\EntityManagerFactory');
 $entityManager = $entityManagerFactory->create();
 
 return DependencyFactory::fromEntityManager(
