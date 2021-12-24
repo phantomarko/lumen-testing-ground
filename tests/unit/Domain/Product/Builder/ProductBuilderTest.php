@@ -29,9 +29,9 @@ class ProductBuilderTest extends TestCase
 
         $this->assertInstanceOf(Product::class, $product);
         $this->assertNotEmpty($product->getUuid());
-        $this->assertEquals($name, $product->getName()->getValue());
-        $this->assertEquals($priceAmount, $product->getPrice()->getAmount());
-        $this->assertEquals($priceCurrency, $product->getPrice()->getCurrency()->getValue());
+        $this->assertEquals($name, $product->getName());
+        $this->assertEquals($priceAmount, $product->getPriceAmount());
+        $this->assertEquals($priceCurrency, $product->getPriceCurrency());
     }
 
     public function testBuild_product_without_generating_an_uuid()

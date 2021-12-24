@@ -24,18 +24,13 @@ final class Price
         return $this->amount;
     }
 
-    public function getCurrency(): Currency
+    public function getCurrency(): string
     {
-        return $this->currency;
-    }
-
-    public function getPrice(): string
-    {
-        return $this->getAmount() . ' ' . $this->getCurrency()->getValue();
+        return $this->currency->getValue();
     }
 
     public function __toString()
     {
-        return $this->getPrice();
+        return $this->getAmount() . ' ' . $this->getCurrency();
     }
 }

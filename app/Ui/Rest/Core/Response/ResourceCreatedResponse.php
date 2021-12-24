@@ -6,9 +6,9 @@ use App\Domain\Core\ValueObject\Uuid;
 
 class ResourceCreatedResponse extends BaseResponse
 {
-    public function __construct(Uuid $resourceUuid)
+    public function __construct(string $resourceUuid)
     {
-        parent::__construct(['uuid' => (string)$resourceUuid], self::HTTP_CREATED);
+        parent::__construct(['uuid' => $resourceUuid], self::HTTP_CREATED);
     }
 
 }

@@ -26,7 +26,7 @@ class CreateProductCommandHandlerTest extends TestCase
 
         $uuid = $handler->handle($command);
 
-        $this->assertInstanceOf(Uuid::class, $uuid);
+        $this->assertIsString($uuid);
     }
 
     private function repositoryMockWillSaveAProduct(MockObject $productRepository): void

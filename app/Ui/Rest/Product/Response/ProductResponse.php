@@ -15,10 +15,10 @@ class ProductResponse extends BaseResponse
     private function toArray(Product $product): array
     {
         return [
-            'uuid' => (string) $product->getUuid(),
-            'name' => (string) $product->getName(),
-            'price' => $product->getPrice()->getAmount(),
-            'currency' => (string) $product->getPrice()->getCurrency(),
+            'uuid' => $product->getUuid(),
+            'name' => $product->getName(),
+            'price' => $product->getPriceAmount(),
+            'currency' => $product->getPriceCurrency(),
         ];
     }
 }

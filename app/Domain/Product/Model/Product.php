@@ -19,18 +19,23 @@ class Product
         $this->price = $price;
     }
 
-    public function getUuid(): Uuid
+    public function getUuid(): string
     {
-        return $this->uuid;
+        return $this->uuid->getValue();
     }
 
-    public function getName(): ProductName
+    public function getName(): string
     {
-        return $this->name;
+        return $this->name->getValue();
     }
 
-    public function getPrice(): Price
+    public function getPriceAmount(): float
     {
-        return $this->price;
+        return $this->price->getAmount();
+    }
+
+    public function getPriceCurrency(): string
+    {
+        return $this->price->getCurrency();
     }
 }

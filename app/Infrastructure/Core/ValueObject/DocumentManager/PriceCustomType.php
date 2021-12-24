@@ -31,7 +31,7 @@ class PriceCustomType extends Type
             '|',
             [
                 $value->getAmount(),
-                $value->getCurrency()->getValue()
+                $value->getCurrency()
             ]
         );
     }

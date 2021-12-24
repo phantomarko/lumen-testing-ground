@@ -30,6 +30,6 @@ class ProductFinderTest extends TestCase
 
         $product = $finder->byUuid($uuid);
 
-        $this->assertEquals($uuid, $product->getUuid()->getValue());
+        $this->assertEquals($uuid, $product->getUuid());
     }
 }

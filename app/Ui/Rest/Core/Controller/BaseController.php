@@ -15,7 +15,7 @@ abstract class BaseController extends Controller
         return new ProductResponse($product);
     }
 
-    protected function createResourceCreatedResponse(Uuid $uuid): ResourceCreatedResponse
+    protected function createResourceCreatedResponse(string $uuid): ResourceCreatedResponse
     {
         return new ResourceCreatedResponse($uuid);
     }

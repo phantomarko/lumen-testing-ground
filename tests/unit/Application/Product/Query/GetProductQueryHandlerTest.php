@@ -36,6 +36,6 @@ class GetProductQueryHandlerTest extends TestCase
 
         $product = $queryHandler->handle($query);
 
-        $this->assertEquals($uuid, $product->getUuid()->getValue());
+        $this->assertEquals($uuid, $product->getUuid());
     }
 }

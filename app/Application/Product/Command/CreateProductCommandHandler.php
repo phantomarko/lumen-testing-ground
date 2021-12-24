@@ -17,7 +17,7 @@ class CreateProductCommandHandler
         $this->productRepository = $productRepository;
     }
 
-    public function handle(CreateProductCommand $command): Uuid
+    public function handle(CreateProductCommand $command): string
     {
         $product = $this->productBuilder
             ->generateUuid()
