@@ -2,7 +2,7 @@
 
 namespace App\Domain\Core\Exception;
 
-class ValueIsEmptyException extends \Exception
+class ValueIsEmptyException extends NotValidException
 {
 
     public function __construct(string $name)

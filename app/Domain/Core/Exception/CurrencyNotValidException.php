@@ -2,7 +2,7 @@
 
 namespace App\Domain\Core\Exception;
 
-class CurrencyNotValidException extends \Exception
+class CurrencyNotValidException extends NotValidException
 {
     public function __construct($currency)
     {
