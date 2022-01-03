@@ -2,6 +2,7 @@
 
 namespace App\Domain\Core\ValueObject;
 
+use App\Domain\Core\Exception\ValueHasAnInvalidLengthException;
 use App\Domain\Core\Exception\ValueIsEmptyException;
 
 abstract class StringValueObject
@@ -24,6 +25,14 @@ abstract class StringValueObject
     {
         if (empty($value)) {
             throw new ValueIsEmptyException(self::VALUE_OBJECT_NAME);
+        }
+    }
+
+    protected function lengthIsInTheRange(string $value, int $min, int $max): void
+    {
+        $length = strlen($value);
+        if ($length < $min || $length > $max) {
+            throw new ValueHasAnInvalidLengthException(self::VALUE_OBJECT_NAME);
         }
     }
 
