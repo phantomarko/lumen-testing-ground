@@ -4,9 +4,7 @@ namespace App\Domain\Product\Builder;
 
 use App\Domain\Core\Exception\ValueIsEmptyException;
 use App\Domain\Core\Service\UuidGeneratorInterface;
-use App\Domain\Core\ValueObject\Currency;
 use App\Domain\Core\ValueObject\Price;
-use App\Domain\Product\Exception\RequiredProductParameterIsNullException;
 use App\Domain\Product\Model\Product;
 use App\Domain\Product\ValueObject\ProductName;
 

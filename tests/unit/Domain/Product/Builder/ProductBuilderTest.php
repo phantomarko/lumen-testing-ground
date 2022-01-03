@@ -4,7 +4,6 @@ namespace unit\Domain\Product\Builder;
 
 use App\Domain\Core\Exception\ValueIsEmptyException;
 use App\Domain\Core\ValueObject\Currency;
-use App\Domain\Product\Exception\RequiredProductParameterIsNullException;
 use App\Domain\Product\Model\Product;
 use PHPUnit\Framework\TestCase;
 use unit\CoreTestingTrait;
