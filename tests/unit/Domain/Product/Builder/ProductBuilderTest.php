@@ -2,6 +2,7 @@
 
 namespace unit\Domain\Product\Builder;
 
+use App\Domain\Core\Exception\ValueIsEmptyException;
 use App\Domain\Core\ValueObject\Currency;
 use App\Domain\Product\Exception\RequiredProductParameterIsNullException;
 use App\Domain\Product\Model\Product;
@@ -41,7 +42,7 @@ class ProductBuilderTest extends TestCase
         $priceCurrency = Currency::euro()->getValue();
         $builder = $this->createProductBuilder($this->createRamseyUuidGenerator());
 
-        $this->expectException(RequiredProductParameterIsNullException::class);
+        $this->expectException(ValueIsEmptyException::class);
         $builder
             ->addName($name)
             ->addPrice($priceAmount, $priceCurrency)
@@ -51,14 +52,14 @@ class ProductBuilderTest extends TestCase
     /**
      * @dataProvider build_product_passing_a_required_parameterProvider
      */
-    public function testBuild_product_passing_a_required_parameter(
+    public function testBuild_product_without_passing_a_required_parameter(
         ?string $name,
         ?float $priceAmount,
         ?string $priceCurrency
     ) {
         $builder = $this->createProductBuilder($this->createRamseyUuidGenerator());
 
-        $this->expectException(RequiredProductParameterIsNullException::class);
+        $this->expectException(ValueIsEmptyException::class);
         $builder
             ->generateUuid()
             ->addName($name)

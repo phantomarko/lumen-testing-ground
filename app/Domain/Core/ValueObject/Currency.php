@@ -6,6 +6,7 @@ use App\Domain\Core\Exception\CurrencyNotValidException;
 
 final class Currency extends StringValueObject
 {
+    protected const VALUE_OBJECT_NAME = 'Currency';
     private const EURO = 'EUR';
     private const DOLLAR = 'USD';
     private const AVAILABLE_CURRENCIES = [
@@ -13,7 +14,13 @@ final class Currency extends StringValueObject
         self::DOLLAR
     ];
 
-    protected function validate(string $value): void
+    protected function validate(?string $value): void
+    {
+        $this->isNotEmpty($value);
+        $this->isValidCurrency($value);
+    }
+
+    protected function isValidCurrency(string $value): void
     {
         if (!in_array($value, self::AVAILABLE_CURRENCIES)) {
             throw new CurrencyNotValidException($value);

@@ -6,8 +6,10 @@ use App\Domain\Core\ValueObject\StringValueObject;
 
 final class ProductName extends StringValueObject
 {
-    protected function validate(string $value): void
+    protected const VALUE_OBJECT_NAME = 'Product Name';
+
+    protected function validate(?string $value): void
     {
-        // TODO: Implement validate() method.
+        $this->isNotEmpty($value);
     }
 }

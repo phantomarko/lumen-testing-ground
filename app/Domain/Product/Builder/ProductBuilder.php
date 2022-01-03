@@ -2,6 +2,7 @@
 
 namespace App\Domain\Product\Builder;
 
+use App\Domain\Core\Exception\ValueIsEmptyException;
 use App\Domain\Core\Service\UuidGeneratorInterface;
 use App\Domain\Core\ValueObject\Currency;
 use App\Domain\Core\ValueObject\Price;
@@ -51,18 +52,14 @@ class ProductBuilder
 
     public function addName(?string $name): self
     {
-        if (!is_null($name)) {
-            $this->properties[self::NAME] = new ProductName($name);
-        }
+        $this->properties[self::NAME] = new ProductName($name);
 
         return $this;
     }
 
     public function addPrice(?float $amount, ?string $currency): self
     {
-        if (!is_null($amount) && !is_null($currency)) {
-            $this->properties[self::PRICE] = new Price($amount, new Currency($currency));
-        }
+        $this->properties[self::PRICE] = new Price($amount, $currency);
 
         return $this;
     }
@@ -71,7 +68,7 @@ class ProductBuilder
     {
         foreach ($this->properties as $property => $value) {
             if ($this->isRequiredProperty($property) && is_null($value)) {
-                throw new RequiredProductParameterIsNullException($property);
+                throw new ValueIsEmptyException($property);
             }
         }
     }
