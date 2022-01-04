@@ -2,6 +2,7 @@
 
 namespace App\Domain\Core\ValueObject;
 
+use App\Domain\Core\Exception\PriceIsNegativeException;
 use App\Domain\Core\Exception\ValueIsEmptyException;
 
 final class Price
@@ -22,12 +23,20 @@ final class Price
     private function validateAmount(?float $amount): void
     {
         $this->isNotEmpty($amount);
+        $this->isNotNegative($amount);
     }
 
     private function isNotEmpty(?float $amount): void
     {
-        if (empty($amount)) {
+        if (empty($amount) && $amount !== 0.0) {
             throw new ValueIsEmptyException(self::VALUE_OBJECT_NAME);
+        }
+    }
+
+    private function isNotNegative(float $amount): void
+    {
+        if ($amount < 0) {
+            throw new PriceIsNegativeException();
         }
     }
 
