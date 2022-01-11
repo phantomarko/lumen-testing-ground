@@ -4,11 +4,11 @@ namespace App\Infrastructure\Product\Repository;
 
 use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Model\Product;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
+use App\Domain\Product\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
-class EntityManagerProductRepository implements ProductRepositoryInterface
+class EntityManagerProductRepository implements ProductRepository
 {
     private EntityManagerInterface $entityManager;
 

@@ -5,13 +5,13 @@ namespace App\Domain\Product\Service;
 use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Exception\ProductNotFoundException;
 use App\Domain\Product\Model\Product;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
+use App\Domain\Product\Repository\ProductRepository;
 
 class ProductFinder
 {
-    private ProductRepositoryInterface $productRepository;
+    private ProductRepository $productRepository;
 
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepository $productRepository)
     {
         $this->productRepository = $productRepository;
     }

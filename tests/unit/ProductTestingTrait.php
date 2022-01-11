@@ -6,9 +6,10 @@ use App\Application\Product\Command\CreateProductCommand;
 use App\Application\Product\Command\CreateProductCommandHandler;
 use App\Application\Product\Query\GetProductQuery;
 use App\Application\Product\Query\GetProductQueryHandler;
-use App\Domain\Core\Service\UuidGeneratorInterface;
+use App\Domain\Core\Event\EventDispatcher;
+use App\Domain\Core\Service\UuidGenerator;
 use App\Domain\Product\Builder\ProductBuilder;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
+use App\Domain\Product\Repository\ProductRepository;
 use App\Domain\Product\Service\ProductFinder;
 
 trait ProductTestingTrait
@@ -33,17 +34,18 @@ trait ProductTestingTrait
 
     public function createCreateProductCommandHandler(
         ProductBuilder $productBuilder,
-        ProductRepositoryInterface $productRepository
+        ProductRepository $productRepository,
+        EventDispatcher $eventDispatcher
     ): CreateProductCommandHandler {
-        return new CreateProductCommandHandler($productBuilder, $productRepository);
+        return new CreateProductCommandHandler($productBuilder, $productRepository, $eventDispatcher);
     }
 
-    public function createProductFinder(ProductRepositoryInterface $productRepository): ProductFinder
+    public function createProductFinder(ProductRepository $productRepository): ProductFinder
     {
         return new ProductFinder($productRepository);
     }
 
-    public function createProductBuilder(UuidGeneratorInterface $uuidGenerator): ProductBuilder
+    public function createProductBuilder(UuidGenerator $uuidGenerator): ProductBuilder
     {
         return new ProductBuilder($uuidGenerator);
     }
