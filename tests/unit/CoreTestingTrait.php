@@ -9,7 +9,7 @@ trait CoreTestingTrait
 {
     public function generateUuid(): string
     {
-        return RamseyUuid::uuid4();
+        return RamseyUuid::uuid4()->toString();
     }
 
     public function createRamseyUuidGenerator(): RamseyUuidGenerator
