@@ -3,7 +3,7 @@
 namespace App\Application\Product\Listener;
 
 use App\Domain\Core\ValueObject\Uuid;
-use App\Domain\Product\Event\ProductCreated;
+use App\Domain\Product\Event\ProductCreatedEvent;
 use App\Domain\Product\Repository\ProductRepository;
 
 class SaveProductOnAlternativeStorageListener
@@ -15,7 +15,7 @@ class SaveProductOnAlternativeStorageListener
         $this->productRepository = $productRepository;
     }
 
-    public function onProductCreated(ProductCreated $event): void
+    public function onProductCreated(ProductCreatedEvent $event): void
     {
         $product = $event->getProduct();
         if ($this->productAlreadyExists($product->getUuid())) {

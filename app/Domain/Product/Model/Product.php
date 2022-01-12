@@ -5,7 +5,7 @@ namespace App\Domain\Product\Model;
 use App\Domain\Core\Event\Event;
 use App\Domain\Core\ValueObject\Price;
 use App\Domain\Core\ValueObject\Uuid;
-use App\Domain\Product\Event\ProductCreated;
+use App\Domain\Product\Event\ProductCreatedEvent;
 use App\Domain\Product\ValueObject\ProductName;
 
 class Product
@@ -13,7 +13,7 @@ class Product
     private Uuid $uuid;
     private ProductName $name;
     private Price $price;
-    /** @var Event[]  */
+    /** @var Event[] */
     private array $events = [];
 
     public function __construct(Uuid $uuid, ProductName $name, Price $price)
@@ -55,7 +55,7 @@ class Product
 
     private function addProductCreatedEvent(): void
     {
-        $this->events[] = new ProductCreated($this->getCopy());
+        $this->events[] = new ProductCreatedEvent($this->getCopy());
     }
 
     private function getCopy(): self{

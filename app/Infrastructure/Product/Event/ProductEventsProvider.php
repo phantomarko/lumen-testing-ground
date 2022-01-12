@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Product\Event;
 
 use App\Application\Product\Listener\SaveProductOnAlternativeStorageListener;
-use App\Domain\Product\Event\ProductCreated;
+use App\Domain\Product\Event\ProductCreatedEvent;
 use Illuminate\Support\Facades\Event;
 use Laravel\Lumen\Providers\EventServiceProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -20,7 +20,7 @@ class ProductEventsProvider extends EventServiceProvider
         );
 
         Event::listen(
-            ProductCreated::class,
+            ProductCreatedEvent::class,
             [$saveProductOnAlternativeStorageListener, 'onProductCreated']
         );
     }

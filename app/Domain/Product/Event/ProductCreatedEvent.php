@@ -5,7 +5,7 @@ namespace App\Domain\Product\Event;
 use App\Domain\Core\Event\Event;
 use App\Domain\Product\Model\Product;
 
-class ProductCreated extends Event
+class ProductCreatedEvent extends Event
 {
     private Product $product;
 

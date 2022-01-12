@@ -6,7 +6,7 @@ use App\Application\Product\Listener\SaveProductOnAlternativeStorageListener;
 use App\Domain\Core\ValueObject\Currency;
 use App\Domain\Core\ValueObject\Price;
 use App\Domain\Core\ValueObject\Uuid;
-use App\Domain\Product\Event\ProductCreated;
+use App\Domain\Product\Event\ProductCreatedEvent;
 use App\Domain\Product\Model\Product;
 use App\Domain\Product\Repository\ProductRepository;
 use App\Domain\Product\ValueObject\ProductName;
@@ -33,7 +33,7 @@ class SaveProductOnAlternativeStorageListenerTest extends TestCase
         $this->repositoryWillPersistAProduct(false);
         $listener = new SaveProductOnAlternativeStorageListener($this->productRepository);
 
-        $listener->onProductCreated(new ProductCreated($this->product));
+        $listener->onProductCreated(new ProductCreatedEvent($this->product));
     }
 
     public function testSave_product_that_not_exists()
@@ -42,7 +42,7 @@ class SaveProductOnAlternativeStorageListenerTest extends TestCase
         $this->repositoryWillPersistAProduct(true);
         $listener = new SaveProductOnAlternativeStorageListener($this->productRepository);
 
-        $listener->onProductCreated(new ProductCreated($this->product));
+        $listener->onProductCreated(new ProductCreatedEvent($this->product));
     }
 
     private function repositoryWillReturn(?Product $product): void
