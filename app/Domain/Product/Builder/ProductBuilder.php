@@ -3,7 +3,7 @@
 namespace App\Domain\Product\Builder;
 
 use App\Domain\Core\Exception\ValueIsEmptyException;
-use App\Domain\Core\Service\UuidGeneratorInterface;
+use App\Domain\Core\Service\UuidGenerator;
 use App\Domain\Core\ValueObject\Price;
 use App\Domain\Product\Model\Product;
 use App\Domain\Product\ValueObject\ProductName;
@@ -19,10 +19,10 @@ class ProductBuilder
         self::PRICE
     ];
 
-    private UuidGeneratorInterface $uuidGenerator;
+    private UuidGenerator $uuidGenerator;
     private ?array $properties;
 
-    public function __construct(UuidGeneratorInterface $uuidGenerator)
+    public function __construct(UuidGenerator $uuidGenerator)
     {
         $this->uuidGenerator = $uuidGenerator;
         $this->reset();

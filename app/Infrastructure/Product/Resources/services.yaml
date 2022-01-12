@@ -1,5 +1,5 @@
 services:
-  # command and query handlers (must have the tags and be public)
+  # query handlers
   App\Application\Product\Query\GetProductQueryHandler:
     arguments:
       - '@App\Domain\Product\Service\ProductFinder'
@@ -7,13 +7,21 @@ services:
     tags:
       - { name: tactician.handler, typehints: true }
 
+  # command handlers
   App\Application\Product\Command\CreateProductCommandHandler:
     arguments:
       - '@App\Domain\Product\Builder\ProductBuilder'
-      - '@App\Infrastructure\Product\Repository\DocumentManagerProductRepository' # change to use MySQL or MongoDB
+      - '@App\Infrastructure\Product\Repository\DocumentManagerProductRepository'
+      - '@App\Infrastructure\Core\Event\LumenEventDispatcher'
     public: true
     tags:
       - { name: tactician.handler, typehints: true }
+
+  # listeners
+  App\Application\Product\Listener\SaveProductOnAlternativeStorageListener:
+    arguments:
+      - '@App\Infrastructure\Product\Repository\EntityManagerProductRepository'
+    public: true
 
   # services
   App\Domain\Product\Builder\ProductBuilder:
@@ -22,7 +30,7 @@ services:
 
   App\Domain\Product\Service\ProductFinder:
     arguments:
-      - '@App\Infrastructure\Product\Repository\DocumentManagerProductRepository' # change to use MySQL or MongoDB
+      - '@App\Infrastructure\Product\Repository\DocumentManagerProductRepository'
 
   # repositories
   App\Infrastructure\Product\Repository\RandomPokemonProductRepository:

@@ -102,3 +102,6 @@ services:
 
   # services
   App\Infrastructure\Core\Service\RamseyUuidGenerator:
+
+  # events
+  App\Infrastructure\Core\Event\LumenEventDispatcher:

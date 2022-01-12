@@ -6,10 +6,10 @@ use App\Domain\Core\ValueObject\Currency;
 use App\Domain\Core\ValueObject\Price;
 use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Model\Product;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
+use App\Domain\Product\Repository\ProductRepository;
 use App\Domain\Product\ValueObject\ProductName;
 
-class RandomPokemonProductRepository implements ProductRepositoryInterface
+class RandomPokemonProductRepository implements ProductRepository
 {
     public function save(Product $product): void
     {

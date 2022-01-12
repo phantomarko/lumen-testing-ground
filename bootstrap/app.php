@@ -18,7 +18,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 // $app->withEloquent();
 
 /*
@@ -107,7 +107,7 @@ $app->configure('app');
 |--------------------------------------------------------------------------
 */
 
-// $app->register(\App\Infrastructure\Module\ModuleProvider::class);
+$app->register(\App\Infrastructure\Product\Event\ProductEventsProvider::class);
 
 /*
 |--------------------------------------------------------------------------

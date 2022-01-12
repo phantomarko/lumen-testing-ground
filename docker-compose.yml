@@ -7,6 +7,29 @@ networks:
 
 services:
 
+  php:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    container_name: php
+    restart: unless-stopped
+    networks:
+      - app-network
+    volumes:
+      - ./:/var/www
+
+  nginx:
+    image: nginx:1.21.5-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    networks:
+      - app-network
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+
   mongo:
     image: mongo
     container_name: mongo
