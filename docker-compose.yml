@@ -15,8 +15,6 @@ services:
     restart: unless-stopped
     networks:
       - app-network
-    volumes:
-      - ./:/var/www
 
   nginx:
     image: nginx:1.21.5-alpine
