@@ -103,5 +103,7 @@ services:
   # services
   App\Infrastructure\Core\Service\RamseyUuidGenerator:
 
+  App\Infrastructure\Core\Service\LumenLogger:
+
   # events
   App\Infrastructure\Core\Event\LumenEventDispatcher:

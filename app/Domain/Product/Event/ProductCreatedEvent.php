@@ -3,19 +3,18 @@
 namespace App\Domain\Product\Event;
 
 use App\Domain\Core\Event\Event;
-use App\Domain\Product\Model\Product;
 
 class ProductCreatedEvent extends Event
 {
-    private Product $product;
+    private string $productUuid;
 
-    public function __construct(Product $product)
+    public function __construct(string $productUuid)
     {
-        $this->product = $product;
+        $this->productUuid = $productUuid;
     }
 
-    public function getProduct(): Product
+    public function getProductUuid(): string
     {
-        return $this->product;
+        return $this->productUuid;
     }
 }

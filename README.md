@@ -5,13 +5,14 @@ Also it has example uses and integrations of the most common and useful packages
 * Symfony Service Container
 * Doctrine Entity Manager
 * Doctrine Document Manager
+* Laravel Events
 * ... 
 
 ## Prerequisites 📚️
 * PHP 8.0 and composer installed globally
 * docker and docker-compose
 
-## Setup dev environment ⚙️
+## Setup ⚙️
 
 1. Do composer install to download vendor packages
     ```shell
@@ -28,24 +29,33 @@ Also it has example uses and integrations of the most common and useful packages
     APP_KEY=anexampleappkey
     ```
    
-4. Build and start containers of the MySQL and MongoDB servers and web admins
+4. If you are a Linux user, probably you will get permissions problems. To solve them, change the ownership and permissions of the storage folder
     ```shell
+    $ sudo chown {YOUR_CURRENT_USER}:www-data -R storage
+   
+    $ sudo chmod 775 -R storage
+    ```
+   
+5. Build and start containers of the MySQL and MongoDB servers and web admins
+    ```shell
+    $ docker-compose build
+   
     $ docker-compose up -d
     ```
    
-5. Enter to the PHP container
+6. Enter to the PHP container
     ```shell
     $ docker-compose exec php bash
     ```
    
-6. Execute the MySQL migrations inside the container
+7. Execute the MySQL migrations inside the container
     ```shell
     $ ./vendor/bin/doctrine-migrations migrate
     ```
    
-## API endpoints
-
-**Base Url: [http://localhost:8000/](http://localhost:8000/)**
+8. The API should be ready to be used in [http://localhost:8000/](http://localhost:8000/)
+   
+## API Endpoints
 
 * **GET** _/products/{UUID}_
 
@@ -68,9 +78,7 @@ access credentials
 |  MySQL  |    Adminer    | [http://localhost:8080/?server=mysql](http://localhost:8080/?server=mysql) |
 | MongoDB | Mongo Express | [http://localhost:8081/](http://localhost:8081/)                           |
 
-## List of commands 📜
-
-### Tests ✅
+## Tests ✅
 * Run all the unit tests
     ```shell
     $ ./vendor/bin/phpunit tests
@@ -79,34 +87,4 @@ access credentials
 * Run a concrete test or set of tests
     ```shell
     $ ./vendor/bin/phpunit tests/unit/Application/Product/Command/CreateProductCommandHandlerTest.php
-    ```
-
-### Doctrine Migrations 🗃️
-* Display list of all commands
-    ```shell
-    $ ./vendor/bin/doctrine-migrations list
-    ```
-
-* Generate a migration by comparing your current database to your mapping information
-    ```shell
-    $ ./vendor/bin/doctrine-migrations diff
-    ```
-
-* Execute a migration to a specified version or the latest available version
-    ```shell
-    $ ./vendor/bin/doctrine-migrations migrate
-    ```
-
-### Docker 🐋
-* Start
-    ```shell
-    $ docker-compose up -d
-    ```
-    ```shell
-    $ docker-compose up -d --force-recreate
-    ```
-
-* Stop
-    ```shell
-    $ docker-compose down --remove-orphans
     ```
