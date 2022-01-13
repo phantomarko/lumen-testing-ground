@@ -8,7 +8,6 @@ use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Event\ProductCreatedEvent;
 use App\Domain\Product\Repository\ProductRepository;
 use App\Domain\Product\Service\ProductFinder;
-use Illuminate\Support\Facades\Log;
 
 class SaveProductOnAlternativeStorageListener
 {
@@ -30,7 +29,6 @@ class SaveProductOnAlternativeStorageListener
 
     public function onProductCreated(ProductCreatedEvent $event): void
     {
-        Log::debug('ola k ase');
         try {
             $productUuid = $event->getProductUuid();
             $this->guardAgainstProductExistsInAlternativeStorage($productUuid);
