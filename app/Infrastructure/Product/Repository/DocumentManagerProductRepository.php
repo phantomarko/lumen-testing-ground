@@ -4,11 +4,11 @@ namespace App\Infrastructure\Product\Repository;
 
 use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Model\Product;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
+use App\Domain\Product\Repository\ProductRepository;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 
-class DocumentManagerProductRepository implements ProductRepositoryInterface
+class DocumentManagerProductRepository implements ProductRepository
 {
     private DocumentManager $documentManager;
 

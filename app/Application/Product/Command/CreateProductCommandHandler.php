@@ -2,19 +2,25 @@
 
 namespace App\Application\Product\Command;
 
-use App\Domain\Core\ValueObject\Uuid;
+use App\Domain\Core\Event\EventDispatcher;
 use App\Domain\Product\Builder\ProductBuilder;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
+use App\Domain\Product\Repository\ProductRepository;
 
 class CreateProductCommandHandler
 {
     private ProductBuilder $productBuilder;
-    private ProductRepositoryInterface $productRepository;
+    private ProductRepository $productRepository;
+    private EventDispatcher $eventDispatcher;
 
-    public function __construct(ProductBuilder $productBuilder, ProductRepositoryInterface $productRepository)
+    public function __construct(
+        ProductBuilder $productBuilder,
+        ProductRepository $productRepository,
+        EventDispatcher $eventDispatcher
+    )
     {
         $this->productBuilder = $productBuilder;
         $this->productRepository = $productRepository;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function handle(CreateProductCommand $command): string
@@ -26,6 +32,15 @@ class CreateProductCommandHandler
             ->build();
         $this->productRepository->save($product);
 
+        $this->dispatchProductEvents($product->takeEvents());
+
         return $product->getUuid();
+    }
+
+    private function dispatchProductEvents(array $events): void
+    {
+        foreach ($events as $event) {
+            $this->eventDispatcher->dispatch($event);
+        }
     }
 }

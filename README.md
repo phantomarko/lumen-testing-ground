@@ -8,18 +8,8 @@ Also it has example uses and integrations of the most common and useful packages
 * ... 
 
 ## Prerequisites 📚️
-* PHP 8.0
-* PHP Extensions: 
-  * BCMath
-  * Ctype
-  * JSON
-  * Mbstring
-  * OpenSSL
-  * PDO
-  * Tokenizer
-  * XML
-  * MongoDB
-* Docker and docker-compose
+* PHP 8.0 and composer installed globally
+* docker and docker-compose
 
 ## Setup dev environment ⚙️
 
@@ -43,14 +33,30 @@ Also it has example uses and integrations of the most common and useful packages
     $ docker-compose up -d
     ```
    
-5. Execute the MySQL migrations
+5. Enter to the PHP container
+    ```shell
+    $ docker-compose exec php bash
+    ```
+   
+6. Execute the MySQL migrations inside the container
     ```shell
     $ ./vendor/bin/doctrine-migrations migrate
     ```
+   
+## API endpoints
 
-6. Start the PHP built-in web server
-    ```shell
-    $ php -S localhost:8000 -t {PROJECT_PATH}/public
+**Base Url: [http://localhost:8000/](http://localhost:8000/)**
+
+* **GET** _/products/{UUID}_
+
+
+* **POST** _/products_
+    ```json
+    {
+        "name": "Name",
+        "priceAmount": 288.88,
+        "priceCurrency": "USD"
+    }
     ```
 
 ## Web DB Administrators 🍬

@@ -4,9 +4,9 @@ namespace App\Infrastructure\Product\Repository;
 
 use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Model\Product;
-use App\Domain\Product\Repository\ProductRepositoryInterface;
+use App\Domain\Product\Repository\ProductRepository;
 
-class VoidProductRepository implements ProductRepositoryInterface
+class VoidProductRepository implements ProductRepository
 {
     public function save(Product $product): void
     {

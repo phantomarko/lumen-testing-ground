@@ -1,0 +1,3 @@
+# Ignore databases folders
+.docker/mysql
+.docker/mongodb

@@ -7,8 +7,29 @@ networks:
 
 services:
 
+  php:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    container_name: php
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:1.21.5-alpine
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    networks:
+      - app-network
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
+
   mongo:
-    image: mongo
+    image: mongo:5.0
     container_name: mongo
     restart: always
     volumes:
@@ -22,7 +43,7 @@ services:
       - app-network
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:0.54
     container_name: mongo-express
     restart: always
     ports:
@@ -35,7 +56,7 @@ services:
       - app-network
 
   mysql:
-    image: mysql
+    image: mysql:8.0
     container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -52,7 +73,7 @@ services:
       - app-network
 
   adminer:
-    image: adminer
+    image: adminer:4.8.1
     container_name: adminer
     restart: always
     ports:
