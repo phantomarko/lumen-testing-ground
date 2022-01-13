@@ -21,6 +21,8 @@ services:
   App\Application\Product\Listener\SaveProductOnAlternativeStorageListener:
     arguments:
       - '@App\Infrastructure\Product\Repository\EntityManagerProductRepository'
+      - '@App\Domain\Product\Service\ProductFinder'
+      - '@App\Infrastructure\Core\Service\LumenLogger'
     public: true
 
   # services
