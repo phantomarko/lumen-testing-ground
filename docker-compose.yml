@@ -29,7 +29,7 @@ services:
       - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
 
   mongo:
-    image: mongo
+    image: mongo:5.0
     container_name: mongo
     restart: always
     volumes:
@@ -43,7 +43,7 @@ services:
       - app-network
 
   mongo-express:
-    image: mongo-express
+    image: mongo-express:0.54
     container_name: mongo-express
     restart: always
     ports:
