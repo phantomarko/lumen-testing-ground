@@ -55,13 +55,6 @@ class Product
 
     private function addProductCreatedEvent(): void
     {
-        $this->events[] = new ProductCreatedEvent($this->getCopy());
-    }
-
-    private function getCopy(): self{
-        $clone = clone $this;
-        $clone->takeEvents(); // clear events
-
-        return $clone;
+        $this->events[] = new ProductCreatedEvent($this->getUuid());
     }
 }
