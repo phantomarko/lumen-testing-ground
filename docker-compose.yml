@@ -56,7 +56,7 @@ services:
       - app-network
 
   mysql:
-    image: mysql
+    image: mysql:8.0
     container_name: mysql
     command: --default-authentication-plugin=mysql_native_password
     restart: always
@@ -73,7 +73,7 @@ services:
       - app-network
 
   adminer:
-    image: adminer
+    image: adminer:4.8.1
     container_name: adminer
     restart: always
     ports:
