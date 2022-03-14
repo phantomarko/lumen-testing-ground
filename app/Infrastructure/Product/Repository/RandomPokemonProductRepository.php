@@ -8,6 +8,7 @@ use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Model\Product;
 use App\Domain\Product\Repository\ProductRepository;
 use App\Domain\Product\ValueObject\ProductName;
+use App\Infrastructure\Core\Service\RamseyUuidGenerator;
 
 class RandomPokemonProductRepository implements ProductRepository
 {
@@ -186,5 +187,22 @@ class RandomPokemonProductRepository implements ProductRepository
             "Mewtwo",
             "Mew"
         ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAll(): array
+    {
+        $pokemons = [];
+        $ram = new RamseyUuidGenerator();
+        foreach ($this->getPokemonList() as $pokemon) {
+            $pokemons[] = new Product(
+                $ram->generate(),
+                new ProductName($pokemon),
+                new Price(rand(1,PHP_INT_MAX), Currency::euro())
+            );
+        }
+        return $pokemons;
     }
 }
