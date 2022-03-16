@@ -6,6 +6,12 @@ services:
     public: true
     tags:
       - { name: tactician.handler, typehints: true }
+  App\Application\Product\Query\GetProductsQueryHandler:
+    arguments:
+      - '@App\Domain\Product\Service\ProductFinder'
+    public: true
+    tags:
+      - { name: tactician.handler, typehints: true }
 
   # command handlers
   App\Application\Product\Command\CreateProductCommandHandler:
