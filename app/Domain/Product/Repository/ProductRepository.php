@@ -10,9 +10,4 @@ interface ProductRepository
     public function save(Product $product): void;
 
     public function findByUuid(Uuid $uuid): ?Product;
-
-    /**
-     * @return Product[]
-     */
-    public function findAll(): array;
 }

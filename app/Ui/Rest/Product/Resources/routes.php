@@ -2,14 +2,13 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 $router->group(['prefix' => 'products'], function () use ($router) {
-//    $router->get('/', function () use ($router) {
-//        return 'GET /products';
-//    });
-    $router->get('/', 'GetProductController@index');
+    $router->get('/', function () use ($router) {
+        return 'GET /products';
+    });
 
     $router->post('/', 'PostProductController@index');
 
-    $router->get('{uuid}','GetProductController@byUuid');
+    $router->get('{uuid}','GetProductController@index');
 
     $router->put('{uuid}', function ($uuid) {
         return 'PUT /products/'.$uuid;

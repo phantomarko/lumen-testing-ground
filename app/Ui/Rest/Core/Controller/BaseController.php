@@ -12,12 +12,7 @@ abstract class BaseController extends Controller
 {
     protected function createProductResponse(Product $product): ProductResponse
     {
-        return ProductResponse::make($product);
-    }
-
-    protected function createProductsResponse(array $products): ProductResponse
-    {
-        return ProductResponse::makeAll($products);
+        return new ProductResponse($product);
     }
 
     protected function createResourceCreatedResponse(string $uuid): ResourceCreatedResponse

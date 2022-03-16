@@ -33,7 +33,6 @@ parameters:
   tactician.mappings:
     App\Application\Product\Query\GetProductQuery: 'App\Application\Product\Query\GetProductQueryHandler'
     App\Application\Product\Command\CreateProductCommand: 'App\Application\Product\Command\CreateProductCommandHandler'
-    App\Application\Product\Query\GetProductsQuery: 'App\Application\Product\Query\GetProductsQueryHandler'
 
 services:
   # container builder
