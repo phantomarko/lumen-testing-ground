@@ -1,18 +1,6 @@
 version: '3.8'
 
-networks:
-  app-network:
-    name: app-network
-    driver: bridge
-
-volumes:
-  lumenmysql:
-    driver: local
-  lumenmongo:
-    driver: local
-
 services:
-
   php:
     build:
       context: .
@@ -31,7 +19,6 @@ services:
       - ./:/var/www
     extra_hosts:
       - 'host.docker.internal:host-gateway'
-
   nginx:
     image: nginx:1.21.5-alpine
     container_name: nginx
@@ -43,7 +30,6 @@ services:
     volumes:
       - ./:/var/www
       - ./.docker/nginx/conf.d/:/etc/nginx/conf.d/
-
   mongo:
     image: mongo:5.0
     container_name: mongo
@@ -57,7 +43,6 @@ services:
       - 27017:27017
     networks:
       - app-network
-
   mongo-express:
     image: mongo-express:0.54
     container_name: mongo-express
@@ -70,7 +55,6 @@ services:
       ME_CONFIG_MONGODB_URL: mongodb://user:p4ss@mongo:27017/
     networks:
       - app-network
-
   mysql:
     image: mysql:8.0
     container_name: mysql
@@ -87,7 +71,6 @@ services:
       - 33006:3306
     networks:
       - app-network
-
   adminer:
     image: adminer:4.8.1
     container_name: adminer
@@ -96,3 +79,14 @@ services:
       - 8080:8080
     networks:
       - app-network
+
+volumes:
+  lumenmysql:
+    driver: local
+  lumenmongo:
+    driver: local
+
+networks:
+  app-network:
+    name: app-network
+    driver: bridge

@@ -20,7 +20,7 @@ class GetProductController extends BaseController
 
     public function index(): BaseResponse
     {
-        /** @var Product $product */
+        /** @var Product[] $product */
         $product = $this->queryBus->handle(new GetProductsQuery());
 
         return $this->createProductsResponse($product);

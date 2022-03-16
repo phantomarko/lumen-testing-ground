@@ -17,4 +17,12 @@ class VoidProductRepository implements ProductRepository
     {
         return null;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAll(): array
+    {
+        return [];
+    }
 }

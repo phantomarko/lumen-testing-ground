@@ -22,6 +22,14 @@ services:
     public: true
     tags:
       - { name: tactician.handler, typehints: true }
+  App\Application\Product\Command\UpdateProductCommandHandler:
+    arguments:
+      - '@App\Domain\Product\Builder\ProductUpdater'
+      - '@App\Infrastructure\Product\Repository\DocumentManagerProductRepository'
+      - '@App\Infrastructure\Core\Event\LumenEventDispatcher'
+    public: true
+    tags:
+      - { name: tactician.handler, typehints: true }
 
   # listeners
   App\Application\Product\Listener\SaveProductOnAlternativeStorageListener:
@@ -35,6 +43,9 @@ services:
   App\Domain\Product\Builder\ProductBuilder:
     arguments:
       - '@App\Infrastructure\Core\Service\RamseyUuidGenerator'
+  App\Domain\Product\Builder\ProductUpdater:
+    arguments:
+      - '@App\Infrastructure\Product\Repository\DocumentManagerProductRepository'
 
   App\Domain\Product\Service\ProductFinder:
     arguments:

@@ -6,22 +6,16 @@ use App\Domain\Core\Event\Event;
 use App\Domain\Core\ValueObject\Price;
 use App\Domain\Core\ValueObject\Uuid;
 use App\Domain\Product\Event\ProductCreatedEvent;
+use App\Domain\Product\Event\ProductUpdatedEvent;
 use App\Domain\Product\ValueObject\ProductName;
 
 class Product
 {
-    private Uuid $uuid;
-    private ProductName $name;
-    private Price $price;
     /** @var Event[] */
     private array $events = [];
 
-    public function __construct(Uuid $uuid, ProductName $name, Price $price)
+    public function __construct(private Uuid $uuid, private ProductName $name, private Price $price)
     {
-        $this->uuid = $uuid;
-        $this->name = $name;
-        $this->price = $price;
-
         $this->addProductCreatedEvent();
     }
 
@@ -52,9 +46,22 @@ class Product
 
         return $events;
     }
+    public function update(
+        ?ProductName   $name,
+        ?Price $price
+    ){
+        $this->name = $name ?? $this->name;
+        $this->price = $price ?? $this->price;
+        $this->addProductUpdatedEvent();
+    }
 
     private function addProductCreatedEvent(): void
     {
         $this->events[] = new ProductCreatedEvent($this->getUuid());
+    }
+
+    private function addProductUpdatedEvent(): void
+    {
+        $this->events[] = new ProductUpdatedEvent($this->getUuid());
     }
 }

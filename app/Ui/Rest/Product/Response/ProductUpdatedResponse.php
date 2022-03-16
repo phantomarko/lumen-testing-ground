@@ -5,7 +5,7 @@ namespace App\Ui\Rest\Product\Response;
 use App\Domain\Product\Model\Product;
 use App\Ui\Rest\Core\Response\BaseResponse;
 
-class ProductResponse extends BaseResponse
+class ProductUpdatedResponse extends BaseResponse
 {
     private function __construct(array $data)
     {

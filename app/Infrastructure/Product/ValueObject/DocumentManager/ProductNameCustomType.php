@@ -12,7 +12,7 @@ class ProductNameCustomType extends Type
 
     public function convertToPHPValue($value): ProductName
     {
-        $value = parent::convertToPHPValue($value,);
+        $value = parent::convertToPHPValue($value);
 
         return new ProductName($value);
     }

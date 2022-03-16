@@ -11,9 +11,7 @@ $router->group(['prefix' => 'products'], function () use ($router) {
 
     $router->get('{uuid}','GetProductController@byUuid');
 
-    $router->put('{uuid}', function ($uuid) {
-        return 'PUT /products/'.$uuid;
-    });
+    $router->put('{uuid}','PutProductController@update');
 
     $router->patch('{uuid}', function ($uuid) {
         return 'PATCH /products/'.$uuid;

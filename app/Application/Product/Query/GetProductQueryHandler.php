@@ -18,13 +18,4 @@ class GetProductQueryHandler
     {
         return $this->productFinder->byUuid($query->getUuid());
     }
-
-    /**
-     * @param   \App\Application\Product\Query\GetProductQuery   $query
-     *
-     * @return Product[]
-     */
-    public function handleAll(GetProductQuery $query) : array{
-        return $this->productFinder->getAll();
-    }
 }

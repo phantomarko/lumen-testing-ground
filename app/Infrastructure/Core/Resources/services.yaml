@@ -34,6 +34,7 @@ parameters:
     App\Application\Product\Query\GetProductQuery: 'App\Application\Product\Query\GetProductQueryHandler'
     App\Application\Product\Command\CreateProductCommand: 'App\Application\Product\Command\CreateProductCommandHandler'
     App\Application\Product\Query\GetProductsQuery: 'App\Application\Product\Query\GetProductsQueryHandler'
+    App\Application\Product\Command\UpdateProductCommand: 'App\Application\Product\Command\UpdateProductCommandHandler'
 
 services:
   # container builder

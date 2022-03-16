@@ -10,7 +10,14 @@ class ProductNameCustomType extends StringType
 {
     private const NAME = 'productname';
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    /**
+     * @param                                               $value
+     * @param   \Doctrine\DBAL\Platforms\AbstractPlatform   $platform
+     *
+     * @return \App\Domain\Product\ValueObject\ProductName
+     * @throws \Doctrine\DBAL\Types\ConversionException
+     */
+    public function convertToPHPValue($value, AbstractPlatform $platform): ProductName
     {
         $value = parent::convertToPHPValue($value, $platform);
 
@@ -18,14 +25,17 @@ class ProductNameCustomType extends StringType
     }
 
     /**
-     * @param ProductName $value
+     * @param                                               $value
+     * @param   \Doctrine\DBAL\Platforms\AbstractPlatform   $platform
+     *
+     * @return mixed
      */
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): mixed
     {
         return $value->getValue();
     }
 
-    public function getName()
+    public function getName(): string
     {
         return self::NAME;
     }
