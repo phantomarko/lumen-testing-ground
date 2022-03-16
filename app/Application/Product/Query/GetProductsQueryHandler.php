@@ -5,7 +5,7 @@ namespace App\Application\Product\Query;
 use App\Domain\Product\Model\Product;
 use App\Domain\Product\Service\ProductFinder;
 
-class GetProductQueryHandler
+class GetProductsQueryHandler
 {
     private ProductFinder $productFinder;
 
@@ -14,17 +14,12 @@ class GetProductQueryHandler
         $this->productFinder = $productFinder;
     }
 
-    public function handle(GetProductQuery $query): Product
-    {
-        return $this->productFinder->byUuid($query->getUuid());
-    }
-
     /**
-     * @param   \App\Application\Product\Query\GetProductQuery   $query
+     * @param   \App\Application\Product\Query\GetProductsQuery   $query
      *
      * @return Product[]
      */
-    public function handleAll(GetProductQuery $query) : array{
+    public function handle(GetProductsQuery $query) : array{
         return $this->productFinder->getAll();
     }
 }

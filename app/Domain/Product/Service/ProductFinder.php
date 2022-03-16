@@ -27,4 +27,11 @@ class ProductFinder
 
         return $product;
     }
+
+    /**
+     * @return Product[]
+     */
+    public function getAll(): array{
+        return $this->productRepository->findAll();
+    }
 }

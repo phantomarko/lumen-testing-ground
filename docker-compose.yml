@@ -5,6 +5,12 @@ networks:
     name: app-network
     driver: bridge
 
+volumes:
+  lumenmysql:
+    driver: local
+  lumenmongo:
+    driver: local
+
 services:
 
   php:
@@ -12,11 +18,19 @@ services:
       context: .
       dockerfile: .docker/php/Dockerfile
     container_name: php
+    environment:
+      XDEBUG_CONFIG : 1
+      PHP_IDE_CONFIG : "serverName=homestead"
+      XDEBUG_MODE: "debug"
+      XDEBUG_SESSION : 1
+      XDEBUG_IDEKEY : "PHPSTORM"
     restart: unless-stopped
     networks:
       - app-network
     volumes:
       - ./:/var/www
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
 
   nginx:
     image: nginx:1.21.5-alpine
@@ -35,7 +49,7 @@ services:
     container_name: mongo
     restart: always
     volumes:
-      - ./.docker/mongodb:/data/db
+      - lumenmongo:/data/db
     environment:
       MONGO_INITDB_ROOT_USERNAME: user
       MONGO_INITDB_ROOT_PASSWORD: p4ss
@@ -63,7 +77,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
-      - ./.docker/mysql:/var/lib/mysql
+      - 'lumenmysql:/var/lib/mysql'
     environment:
       MYSQL_RANDOM_ROOT_PASSWORD: yes
       MYSQL_USER: user

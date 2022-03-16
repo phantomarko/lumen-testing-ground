@@ -31,4 +31,12 @@ class EntityManagerProductRepository implements ProductRepository
     {
         return $this->entityManager->getRepository(Product::class);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findAll(): array
+    {
+        return $this->getRepository()->findAll();
+    }
 }
